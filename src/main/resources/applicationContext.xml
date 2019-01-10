@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:component-scan base-package="app">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- Spring的配置文件，这里主要配置和业务逻辑有关的 -->
+	<!--=================== 数据源，事务控制，xxx ================ -->
+	<context:property-placeholder
+		location="classpath:dbconfig.properties" />
+	<!-- 配置数据源 -->
+	<!-- 导入资源文件 -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="user" value="${user}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="driverClass" value="${driverClass}"></property>
+		<property name="jdbcUrl" value="${jdbcUrl}"></property>
+
+		<property name="initialPoolSize" value="30"></property>
+		<property name="maxPoolSize" value="50"></property>
+		<property name="minPoolSize" value="30"></property>
+		<property name="acquireIncrement" value="20"></property>
+		<property name="maxStatements" value="80"></property>
+		<property name="maxStatementsPerConnection" value="50"></property>
+		<property name="maxIdleTime" value="200"></property>
+	</bean>
+
+	<!-- 配置 Hibernate 的 SessionFactory 实例: 通过 Spring 提供的 LocalSessionFactoryBean 
+		进行配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 配置数据源属性 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 配置 hibernate 配置文件的位置及名称 -->
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml"></property>
+		<!-- 配置 hibernate 映射文件的位置及名称, 可以使用通配符 -->
+		<property name="mappingLocations"
+			value="classpath:app/models/*.hbm.xml"></property>
+	</bean>
+
+	<!-- 配置 Spring 的声明式事务 -->
+	<!-- 1. 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- 2. 配置事务属性, 需要事务管理器 -->
+	<tx:advice id="txAdvice"
+		transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 所有方法都是事务方法 -->
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 3. 配置事务切点, 并把切点和事务属性关联起来 -->
+	<aop:config>
+		<aop:pointcut
+			expression="execution(* app.services.*.*(..))" id="txPointcut" />
+		<aop:advisor advice-ref="txAdvice"
+			pointcut-ref="txPointcut" />
+	</aop:config>
+
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- ========================================================= Shiro Core 
+		Components - Not Spring Specific ========================================================= -->
+	<!-- 1. 配置 SecurityManager! -->
+	<bean id="securityManager"
+		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="cacheManager" ref="cacheManager" />
+		<property name="authenticator" ref="authenticator"></property>
+
+		<property name="realms">
+			<list>
+				<ref bean="jdbcRealm" />
+			</list>
+		</property>
+
+		<!-- cookie最大时长，单位秒 <property name="rememberMeManager.cookie.maxAge" value="10"></property> -->
+	</bean>
+
+	<!-- 2. 配置 CacheManager. 2.1 需要加入 ehcache 的 jar 包及配置文件. -->
+	<bean id="cacheManager"
+		class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<!-- <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/> -->
+	</bean>
+
+	<bean id="authenticator"
+		class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+		<property name="authenticationStrategy">
+			<bean
+				class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"></bean>
+		</property>
+	</bean>
+
+	<!-- 3. 配置 Realm 3.1 直接配置实现了 org.apache.shiro.realm.Realm 接口的 bean -->
+	<bean id="jdbcRealm" class="app.shiros.realms.ShiroRealm">
+		<property name="credentialsMatcher">
+			<bean
+				class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<property name="hashAlgorithmName" value="MD5"></property>
+				<property name="hashIterations" value="1024"></property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 4. 配置 LifecycleBeanPostProcessor. 可以自定的来调用配置在 Spring IOC 容器中 shiro 
+		bean 的生命周期方法. -->
+	<bean id="lifecycleBeanPostProcessor"
+		class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+
+		<!-- 5. 启用 IOC 容器中使用 shiro 的注解. 但必须在配置了 LifecycleBeanPostProcessor 之后才可以使用. -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" >
+		</bean>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+
+	<!-- 6. 配置 ShiroFilter. 6.1 id 必须和 web.xml 文件中配置的 DelegatingFilterProxy 
+		的 <filter-name> 一致. 若不一致, 则会抛出: NoSuchBeanDefinitionException. 因为 Shiro 会来 
+		IOC 容器中查找和 <filter-name> 名字对应的 filter bean. -->
+	<bean id="shiroFilter"
+		class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- 未登陆使用loginUrl，登陆成功了使用successUrl，登陆后访问未授权的页面使用unauthorizedUrl -->
+		<property name="loginUrl" value="/users/sign_in" />
+		<property name="successUrl" value="/home/index" />
+		<property name="unauthorizedUrl" value="/unauthorized.jsp" />
+
+		<property name="filterChainDefinitionMap"
+			ref="filterChainDefinitionMap"></property>
+
+		<!-- 配置哪些页面需要受保护. 以及访问这些页面需要的权限. 1). anon 可以被匿名访问 2). authc 必须认证(即登录)后才可能访问的页面. 
+			3). logout 登出. 4). roles 角色过滤器 5).没有配置或配置了匿名可以直接被访问到，不能被访问到的会被重定向到loginUrl页面 -->
+
+		<!-- 匹配模式：?:匹配一个字符，/admin? Ant 路径通配符支持 ?、 *、 **，注意通配符匹配不包括目录分隔符“/”： – ?：匹配一个字符， 
+			如 /admin? 将匹配 /admin1，但不匹配 /admin 或 /admin/； – *：匹配零个或多个字符串， 如 /admin 将匹配 
+			/admin、/admin123，但不匹配 /admin/1； – **：匹配路径中的零个或多个路径， 如 /admin/** 将匹配 /admin/a 
+			或 /admin/a/b URL 权限采取第一次匹配优先的方式 <property name="filterChainDefinitions"> 
+			<value> /login.jsp = anon /user.jsp = anon /shiro/login = anon /shiro/logout 
+			= logout /user.jsp = roles[user] /admin.jsp = roles[admin] /** = authc </value> 
+			</property> -->
+	</bean>
+
+	<!-- 配置一个 bean, 该 bean 实际上是一个 Map. 通过实例工厂方法的方式 -->
+	<bean id="filterChainDefinitionMap"
+		factory-bean="filterChainDefinitionMapBuilder"
+		factory-method="buildFilterChainDefinitionMap"></bean>
+
+	<bean id="filterChainDefinitionMapBuilder"
+		class="app.shiros.factories.FilterChainDefinitionMapBuilder"></bean>
+
+	<!-- ================== Shiro Core Components - Not Spring Specific end 
+		========== -->
+
+	<!-- ========i18n start =============== -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="i18n"></property>
+	</bean>
+	<!-- ========i18n end =============== -->
+
+	<!-- ========file upload start =============== -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="maxUploadSize" value="10485760000"></property>
+		<property name="maxInMemorySize" value="40960"></property>
+	</bean>	
+	<!-- ========file upload end =============== -->
+
+</beans>

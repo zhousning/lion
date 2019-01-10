@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+          "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net /hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="app.models">
+
+	<class name="ExamPoint" table="exam_points" dynamic-insert="true"
+		dynamic-update="true">
+		<id name="id" column="id">
+			<generator class="native" />
+		</id>
+		<property name="name" />
+
+		<many-to-one name="subject" column="subject_id"
+			class="Subject" lazy="false" />
+
+		<set name="questions" table="questions" inverse="false"
+			lazy="false">
+			<key column="exam_point_id" />
+			<one-to-many class="Question" />
+		</set>
+	</class>
+</hibernate-mapping>

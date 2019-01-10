@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/app/shiros/realms/ShiroRealm.java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/WEB-INF/views/layouts/sidebar.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/models/_form.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/users/_form.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/users/index.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/users/sessions/_form.jsp=UTF-8
+encoding//src/main/webapp/index.jsp=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8
