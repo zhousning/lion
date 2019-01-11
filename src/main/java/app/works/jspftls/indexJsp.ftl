@@ -56,11 +56,8 @@
 							<tr class="text-center">
 								<th data-field="id">id</th>
 								<#list model.attrTypes as type>
-								<#if type == "Set">
-								<#else>
 								<th data-field="${model.attrNames[type_index]}" data-filter-control="input"><fmt:message
 										key="${model.name?uncap_first}.${model.attrNames[type_index]}"></fmt:message></th>
-								</#if>	
 								</#list>
 								<th></th>
 							</tr>
@@ -72,10 +69,7 @@
 									<tr>
 										<td>${r'${'} status.index + 1 ${r'}'}</td>
 										<#list model.attrTypes as type>
-										<#if type == "Set">
-										<#else>
-										<td>${model.name?uncap_first}.${model.attrNames[type_index]}</td>
-										</#if>	
+										<td>${r'${'} ${model.name?uncap_first}.${model.attrNames[type_index]} ${r'}'}</td>
 										</#list>
 										<td><a href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id ${r'}'}" class="btn btn-info"><fmt:message
 													key="btn.info"></fmt:message></a> <a

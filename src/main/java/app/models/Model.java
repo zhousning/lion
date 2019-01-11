@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Model {
 	private String name;
+	private String title;
 	private List<String> attrTypes = new ArrayList<String>();
 	private List<String> attrNames = new ArrayList<String>();
 	private List<String> labels = new ArrayList<String>();
@@ -14,6 +15,12 @@ public class Model {
 	
 	public Model() {
 		super();
+	}
+	
+	public Model(String name, String title) {
+		super();
+		this.name = name;
+		this.title = title;
 	}
 	
 	public Model(String name, List<String> attrTypes, List<String> attrNames, List<String> labels,
@@ -83,6 +90,16 @@ public class Model {
 	public void setAssociateObjects(List<String> associateObjects) {
 		this.associateObjects = associateObjects;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
+	
 	
 
 	

@@ -50,20 +50,14 @@
 								<thead>
 									<tr>
 										<#list model.attrTypes as type>
-										<#if type == "Set">
-										<#else>
 										<th><fmt:message key="${model.name?uncap_first}.${model.attrNames[type_index]}"></fmt:message></th>
-										</#if>	
 										</#list>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<#list model.attrTypes as type>
-										<#if type == "Set">
-										<#else>
 										<td>${r'${'}${model.name?uncap_first}.${model.attrNames[type_index]}${r'}'}</td>
-										</#if>	
 										</#list>
 									</tr>
 								</tbody>
