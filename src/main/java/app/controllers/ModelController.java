@@ -69,40 +69,46 @@ public class ModelController {
 		
 		ExportDoc maker = new ExportDoc("UTF-8");
 		
-		String baseUrl = "F:\\Project\\lion\\src\\main\\java\\app\\";
+		String baseUrl = "F:\\Project\\lion\\src\\main\\";
+		String javaftls = "javaftls\\";
+		String jspftls = "jspftls\\";
+		String staticftls = "staticftls\\";
+		
+		String javaUrl = baseUrl + "java\\app\\";
 		String javaSuffix = ".java";
 		
-		String modelTemplate = "model.ftl";
-		String targetModel = baseUrl + "models\\" + model.getName() + javaSuffix;
+		String modelTemplate = javaftls + "model.ftl";
+		String targetModel = javaUrl + "models\\" + model.getName() + javaSuffix;
 		maker.exportDoc(targetModel, map, modelTemplate);
 		
-		String controllerTemplate = "controller.ftl";
-		String targetController = baseUrl + "controllers\\" + model.getName() + "Controller" + javaSuffix;
+		String controllerTemplate = javaftls + "controller.ftl";
+		String targetController = javaUrl + "controllers\\" + model.getName() + "Controller" + javaSuffix;
 		maker.exportDoc(targetController, map, controllerTemplate);
 		
-		String serviceTemplate = "service.ftl";
-		String serviceImplTemplate = "serviceImpl.ftl";
-		String targetService = baseUrl + "services\\" + model.getName() + "Service" + javaSuffix;
-		String targetServiceImpl = baseUrl + "services\\Impl\\" + model.getName() + "ServiceImpl" + javaSuffix;
+		String serviceTemplate = javaftls + "service.ftl";
+		String serviceImplTemplate = javaftls + "serviceImpl.ftl";
+		String targetService = javaUrl + "services\\" + model.getName() + "Service" + javaSuffix;
+		String targetServiceImpl = javaUrl + "services\\Impl\\" + model.getName() + "ServiceImpl" + javaSuffix;
 		maker.exportDoc(targetService, map, serviceTemplate);
 		maker.exportDoc(targetServiceImpl, map, serviceImplTemplate);
 		
-		String daoTemplate = "dao.ftl";
-		String daoImplTemplate = "daoImpl.ftl";
-		String targetDao = baseUrl + "daos\\" + model.getName() + "Dao" + javaSuffix;
-		String targetDaoImpl = baseUrl + "daos\\Impl\\" + model.getName() + "DaoImpl" + javaSuffix;
+		String daoTemplate = javaftls + "dao.ftl";
+		String daoImplTemplate = javaftls + "daoImpl.ftl";
+		String targetDao = javaUrl + "daos\\" + model.getName() + "Dao" + javaSuffix;
+		String targetDaoImpl = javaUrl + "daos\\Impl\\" + model.getName() + "DaoImpl" + javaSuffix;
 		maker.exportDoc(targetDao, map, daoTemplate);
 		maker.exportDoc(targetDaoImpl, map, daoImplTemplate);
 			
-		String testTemplate = "test.ftl";
-		String targetTest = baseUrl + "tests\\" + model.getName() + "Test" + javaSuffix;
+		String testTemplate = javaftls + "test.ftl";
+		String targetTest = javaUrl + "tests\\" + model.getName() + "Test" + javaSuffix;
 		maker.exportDoc(targetTest, map, testTemplate);
 		
-		String jspUrl = "F:\\Project\\lion\\src\\main\\webapp\\WEB-INF\\views\\";
+		
+		String jspUrl = baseUrl + "webapp\\WEB-INF\\views\\";
 		String folder = model.getName().substring(0,1).toLowerCase().concat(model.getName().substring(1)) + "s\\";
 		String jspSuffix = ".jsp";
 		
-		String formTemplate = "formJsp.ftl";
+		String formTemplate = jspftls + "formJsp.ftl";
 		String targetForm = jspUrl + folder + "_form" + jspSuffix;
 				
 		File destFile = new File(targetForm);
@@ -111,17 +117,31 @@ public class ModelController {
         }
         maker.exportDoc(targetForm, map, formTemplate);
         
-        String newTemplate = "newJsp.ftl";
+        String newTemplate = jspftls + "newJsp.ftl";
 		String targetNew = jspUrl + folder + "new" + jspSuffix;
 		maker.exportDoc(targetNew, map, newTemplate);
 		
-		String editTemplate = "editJsp.ftl";
+		String editTemplate = jspftls + "editJsp.ftl";
 		String targetEdit = jspUrl + folder + "edit" + jspSuffix;
 		maker.exportDoc(targetEdit, map, editTemplate);
 		
-		String indexTemplate = "indexJsp.ftl";
+		String indexTemplate = jspftls + "indexJsp.ftl";
 		String targetIndex = jspUrl + folder + "index" + jspSuffix;
 		maker.exportDoc(targetIndex, map, indexTemplate);
+		
+		String showTemplate = jspftls + "showJsp.ftl";
+		String targetShow = jspUrl + folder + "show" + jspSuffix;
+		maker.exportDoc(targetShow, map, showTemplate);
+		
+		String jsUrl = baseUrl + "webapp\\static\\javascripts\\";
+		String cssUrl = baseUrl + "webapp\\static\\stylesheets\\";
+		String jsTemplate = staticftls + "javascript.ftl";
+		String cssTemplate = staticftls + "stylesheets.ftl";
+		String file = model.getName().substring(0,1).toLowerCase().concat(model.getName().substring(1)) + "s";
+		String targetJs = jsUrl + file + ".js";
+		String targetCss = cssUrl + file + ".css";
+		maker.exportDoc(targetJs, map, jsTemplate);
+		maker.exportDoc(targetCss, map, cssTemplate);
 	
 		return "";
 	}

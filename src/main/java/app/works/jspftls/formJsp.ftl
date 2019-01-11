@@ -1,10 +1,9 @@
 <form:form action="${model.name?uncap_first}s" method="POST" modelAttribute="${model.name?uncap_first}"
 	class="form-horizontal">
-	<c:if test="${${model.name?uncap_first}.id != null }">
+	<c:if test="${r'${'}${model.name?uncap_first}.id != null ${r'}'}">
 		<form:hidden path="id" />
 		<input type="hidden" name="_method" value="PUT" />
 	</c:if>
-	
 	<div class="form-group">
 	<#list model.attrTypes as type>
 		<#if type == "Set">

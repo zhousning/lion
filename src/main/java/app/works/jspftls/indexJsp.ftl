@@ -66,21 +66,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:if test="${ !empty requestScope.${model.name?uncap_first}s }">
-								<c:forEach items="${ requestScope.${model.name?uncap_first}s }" var="${model.name?uncap_first}"
+							<c:if test="${r'${'} !empty ${model.name?uncap_first}s ${r'}'}">
+								<c:forEach items="${r'${'} ${model.name?uncap_first}s ${r'}'}" var="${model.name?uncap_first}"
 									varStatus="status">
 									<tr>
-										<td>${ status.index + 1 }</td>
+										<td>${r'${'} status.index + 1 ${r'}'}</td>
 										<#list model.attrTypes as type>
 										<#if type == "Set">
 										<#else>
-										<td>${model.attrNames[type_index]}</td>
+										<td>${model.name?uncap_first}.${model.attrNames[type_index]}</td>
 										</#if>	
 										</#list>
-										<td><a href="${model.name?uncap_first}s/${${model.name?uncap_first}.id }" class="btn btn-info"><fmt:message
+										<td><a href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id ${r'}'}" class="btn btn-info"><fmt:message
 													key="btn.info"></fmt:message></a> <a
-											href="${model.name?uncap_first}s/${${model.name?uncap_first}.id }/edit" class="btn btn-success"><fmt:message
-													key="btn.edit"></fmt:message></a> <a href="${model.name?uncap_first}s/${${model.name?uncap_first}.id}"
+											href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id ${r'}'}/edit" class="btn btn-success"><fmt:message
+													key="btn.edit"></fmt:message></a> <a href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id${r'}'}"
 											class="delete btn btn-danger"><fmt:message
 													key="btn.delete"></fmt:message></a></td>
 									</tr>
