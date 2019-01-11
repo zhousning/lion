@@ -20,6 +20,24 @@
 		</div>
 	</div>
 	</#list>
+
+	<#list model.associateObjects as associate>
+	<div class="form-group">
+		<label for="${associate?uncap_first}" class="col-sm-2 control-label"><fmt:message
+			key="${associate?uncap_first}.name"></fmt:message></label>
+		<div class="col-sm-10">
+		<c:if test="${!empty ${associate?uncap_first}s }">
+		<#if model.widgets[associate_index] == "select">
+		<form:select class="form-control" path="${associate?uncap_first}.id" items="${associate?uncap_first}s" itemLabel="name" itemValue="id"></form:select>
+		<#elseif model.widgets[associate_index] == "radio">
+		<form:radiobuttons items="${associate?uncap_first}s" path="${associate?uncap_first}.id" itemLabel="name" itemValue="id"/>
+		<#elseif model.widgets[associate_index] == "checkbox">
+		<form:checkboxes items="${associate?uncap_first}s" path="${associate?uncap_first}Ids" itemLabel="name" itemValue="id"/>
+		</#if>
+		</c:if>
+		</div>
+	</div>
+	</#list>
 	
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-4">

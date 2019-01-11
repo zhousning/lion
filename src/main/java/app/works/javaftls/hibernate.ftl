@@ -30,7 +30,6 @@
 			<many-to-many class="${model.associateObjects[associate_index]?cap_first}" column="${model.associateObjects[associate_index]?uncap_first}_id">
 			</many-to-many>
 		</set>
-		<#elseif associate == "none">
 		</#if>
 		</#list>
 	</class>

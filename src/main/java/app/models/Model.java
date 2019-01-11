@@ -12,6 +12,7 @@ public class Model {
 	private List<String> constraints = new ArrayList<String>();
 	private List<String> associateTypes = new ArrayList<String>();
 	private List<String> associateObjects = new ArrayList<String>();
+	private List<String> widgets = new ArrayList<String>();
 	
 	public Model() {
 		super();
@@ -97,6 +98,14 @@ public class Model {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public List<String> getWidgets() {
+		return widgets;
+	}
+
+	public void setWidgets(List<String> widgets) {
+		this.widgets = widgets;
 	}
 	
 	

@@ -49,10 +49,17 @@ public class ModelController {
 		associateTypes.add("one-to-many");
 		associateTypes.add("many-to-one");
 		associateTypes.add("many-to-many");
+		
+		List<String> widgets = new ArrayList<String>();
+		widgets.add("none");
+		widgets.add("select");
+		widgets.add("radio");
+		widgets.add("checkbox");
 
 		map.put("attrTypes", attrTypes);
 		map.put("constraints", constraints);
 		map.put("associateTypes", associateTypes);
+		map.put("widgets", widgets);
 		map.put("model", new Model());
 		return "models/new";
 	}

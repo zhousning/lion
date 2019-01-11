@@ -9,11 +9,42 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label for="title" class="col-sm-2 control-label">Model Title</label>
+		<div class="col-sm-3">
+			<form:input type="text" class="form-control"
+				placeholder="title" path="title" />
+		</div>
+	</div>
+	<div class="form-group">
 		<div class="col-sm-1">
 			<button type="button" class="btn btn-primary" id="btn-add-attribute">Add</button>
 		</div>
 	</div>
 	<div id="attribute-ctn">
+		<div class="form-group attr-content">
+			<div class="col-sm-3">
+				<select class="form-control" name="attrTypes">
+					<c:forEach items="${attrTypes}" var="type">
+						<option value="${type }">${type }</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" placeholder="label"
+					name="labels" value="名称"/>
+			</div>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" placeholder="name"
+					name="attrNames" value="name"/>
+			</div>
+			<div class="col-sm-2">
+				<select class="form-control" name="constraints">
+					<c:forEach items="${constraints}" var="constraint">
+						<option value="${constraint }">${constraint }</option>
+					</c:forEach>
+				</select>
+			</div>
+		</div>
 		<div class="form-group attr-content">
 			<div class="col-sm-3">
 				<select class="form-control" name="attrTypes">
@@ -59,7 +90,14 @@
 			</div>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" placeholder="object"
-					path="associateObjects" />
+					name="associateObjects" />
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control" name="widgets">
+					<c:forEach items="${widgets}" var="widget">
+						<option value="${widget }">${widget }</option>
+					</c:forEach>
+				</select>
 			</div>
 			<div class="col-sm-1">
 				<button type="button" class="btn btn-danger btn-delete-associate" onclick="deleteAssociate(this)">Delete</button>
