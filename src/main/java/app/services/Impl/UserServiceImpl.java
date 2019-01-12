@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import app.daos.UserDao;
 import app.daos.Impl.UserDaoImpl;
 import app.models.User;
-import app.services.UsersService;
+import app.services.UserService;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserDao userDao;

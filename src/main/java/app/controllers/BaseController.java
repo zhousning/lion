@@ -30,7 +30,7 @@ import app.models.Monkey;
 import app.models.Role;
 import app.models.User;
 import app.services.RoleService;
-import app.services.UsersService;
+import app.services.UserService;
 
 @Controller
 public class BaseController {
@@ -38,7 +38,7 @@ public class BaseController {
 	@Autowired
 	RoleService roleService;
 	@Autowired
-	UsersService userService;
+	UserService userService;
 	
 	@Autowired
 	ResourceBundleMessageSource messageSource;
@@ -177,20 +177,26 @@ public class BaseController {
 	}
     
     protected void setPassword(User user) {
-    	User baseUser = new User();
     	if (user.getId() != null) {
-    		baseUser = userService.getUserById(user.getId());
+    		User baseUser = userService.getUserById(user.getId());
+    		if (!baseUser.getPassword().equals(user.getPassword())) {
+    			updatePassword(user);
+    		}
+		} else {
+			updatePassword(user);
 		}
-		if (!baseUser.getPassword().equals(user.getPassword())) {
-			String principal = user.getEmail();
-			String hashAlgorithmName = "MD5";
-			Object credentials = user.getPassword();
-			Object salt = ByteSource.Util.bytes(principal);
-			int hashIterations = 1024;
+		
+	}
+    
+    private void updatePassword(User user) {
+    	String principal = user.getEmail();
+		String hashAlgorithmName = "MD5";
+		Object credentials = user.getPassword();
+		Object salt = ByteSource.Util.bytes(principal);
+		int hashIterations = 1024;
 
-			Object password = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
-			user.setPassword(password.toString());
-		}
+		Object password = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
+		user.setPassword(password.toString());
 	}
     
     protected void updateUserSession(User user) {

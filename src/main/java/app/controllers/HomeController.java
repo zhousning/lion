@@ -21,28 +21,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestScope;
 
 import app.models.User;
-import app.services.UsersService;
+import app.services.UserService;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController extends BaseController {
 
 	@Autowired
-	UsersService userService;
-	
-	@ModelAttribute
-	public void getUser(@RequestParam(value="id", required=false) Integer id, Map<String, Object> map) {
-		if (id != null) {
-			System.out.println(userService.getUserById(id).toString());
-			map.put("user", userService.getUserById(id));
-		} 
-	}
-	
+	UserService userService;
+
 	@RequestMapping("")
 	public String index(Map<String, Object> map) {
-		Subject currentUser = SecurityUtils.getSubject();
-		String principal = currentUser.getPrincipal().toString();
-		User user = userService.getUserByEmail(principal);
+		if (!adminRole()) {
+			Subject currentUser = SecurityUtils.getSubject();
+			String principal = currentUser.getPrincipal().toString();
+			User user = userService.getUserByEmail(principal);
+			map.put("user", user);
+		}
 		return "home/index";
 	}
 }

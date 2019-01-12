@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import app.models.Role;
 import app.models.User;
 import app.services.RoleService;
-import app.services.UsersService;
+import app.services.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
@@ -27,7 +27,7 @@ public class RolesTest {
 	RoleService roleService;
 	
 	@Autowired
-	UsersService userService;
+	UserService userService;
 
 	@Autowired
 	private ResourceBundleMessageSource messageSource;

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import app.models.Role;
 import app.models.User;
 import app.services.RoleService;
-import app.services.UsersService;
+import app.services.UserService;
 import app.works.MailUtil;
 
 @Controller 
@@ -39,7 +39,7 @@ import app.works.MailUtil;
 public class ShirosController extends BaseController {
 	
 	@Autowired
-	UsersService userService;
+	UserService userService;
 	
 	@ModelAttribute
 	public void getUser(@RequestParam(value="id", required=false) Integer id, Map<String, Object> map) {

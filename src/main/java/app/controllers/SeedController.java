@@ -34,7 +34,7 @@ public class SeedController  extends BaseController  {
 		int hashIterations = 1024;
 
 		Object password = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
-		User admin = new User("Admin", "15763703199", "admin@admin.com", password.toString());
+		User admin = new User("Admin", "1579999999", "admin@admin.com", password.toString());
 		Role adminRole = roleService.findByName(messageSource.getMessage("roles.admin", null, null));
 		//Role teacherRole = roleService.findByName(messageSource.getMessage("roles.default", null, null));
 		Set<Role> roles = new HashSet<Role>();

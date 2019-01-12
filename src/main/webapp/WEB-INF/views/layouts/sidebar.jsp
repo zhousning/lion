@@ -30,8 +30,7 @@
 						class="fa fa-gift fa-lg"></i> <fmt:message key="roles.manage"></fmt:message>
 						<span class="arrow"></span></a></li>
 				<ul class="sub-menu collapse" id="roles">
-					<li class="active"><a href="#">CSS3 Animation</a></li>
-					<li><a href="roles"><fmt:message key="roles.index"></fmt:message></a></li>
+					<li><a href="roles/index"><fmt:message key="roles.index"></fmt:message></a></li>
 					<li><a href="roles/new"><fmt:message key="roles.new"></fmt:message></a></li>
 				</ul>
 			</shiro:hasAnyRoles>

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="/WEB-INF/views/layouts/jsp_header.jsp"%>
+
+
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 
 
 <%
@@ -10,18 +13,18 @@
 			+ path + "/";
 %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 <base href="<%=basePath%>">
 <meta charset="UTF-8">
-<title><fmt:message key="users.new"></fmt:message></title>
-<%@include file="/WEB-INF/views/layouts/common.jsp"%>
+<title><fmt:message key="users.edit"></fmt:message></title>
+<%@ include file="/WEB-INF/views/layouts/common.jsp"%>
 <link href="static/stylesheets/users.css" rel="stylesheet">
 <script src="static/javascripts/users.js"></script>
 </head>
 <body>
+
 	<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
 	<div class="container-fluid body-container">
 		<div class="row body-box">
@@ -32,16 +35,15 @@
 				<div class="container-fluid">
 					<div class="page-header">
 						<h1>
-							<fmt:message key="users.new"></fmt:message>
+							<fmt:message key="users.edit"></fmt:message>
 						</h1>
 					</div>
 					<div class="row">
-							<%@ include file="/WEB-INF/views/users/_form.jsp"%>
+						<%@ include file="/WEB-INF/views/users/_form.jsp"%>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

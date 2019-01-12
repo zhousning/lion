@@ -25,12 +25,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import app.models.User;
 import app.services.RoleService;
-import app.services.UsersService;
+import app.services.UserService;
 
 public class ShiroRealm extends AuthorizingRealm {
 	
 	@Autowired
-	UsersService usersService;
+	UserService usersService;
 	@Autowired
 	RoleService roleService;
 

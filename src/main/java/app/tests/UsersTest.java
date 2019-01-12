@@ -19,7 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import app.models.Role;
 import app.models.User;
 import app.services.RoleService;
-import app.services.UsersService;
+import app.services.UserService;
+import javassist.expr.NewArray;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,7 +28,7 @@ import app.services.UsersService;
 public class UsersTest {
 	
 	@Autowired
-	UsersService userService;
+	UserService userService;
 	
 	@Autowired
 	RoleService roleService;
@@ -89,6 +90,11 @@ public class UsersTest {
 	public void save() {
 		User user = new User("zn", null, "nnnn");
 		userService.createUser(user);
+	}
+	
+	@Test
+	public void tool() {
+		System.out.println(new User().getId() == null);
 	}
 	
 }

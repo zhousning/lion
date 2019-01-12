@@ -88,7 +88,7 @@ public class UsersController extends BaseController {
 			setPassword(user);
 			initRole(user);
 			userService.insert(user);
-			return "redirect:/users";
+			return "redirect:/users/index";
 		} else {
 			return "users/new";
 		}

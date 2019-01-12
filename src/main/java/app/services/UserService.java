@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import app.models.User;
 
 
-public interface UsersService {
+public interface UserService {
 	public User getUserById(Integer id);
 	
 	public List<User> getUsers();
