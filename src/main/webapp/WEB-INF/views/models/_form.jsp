@@ -31,7 +31,7 @@
 			</div>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" placeholder="label"
-					name="labels" value="名称"/>
+					name="labels" value="name"/>
 			</div>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" placeholder="name"

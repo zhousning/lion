@@ -26,7 +26,7 @@
 		<label for="${associate?uncap_first}" class="col-sm-2 control-label"><fmt:message
 			key="${associate?uncap_first}.name"></fmt:message></label>
 		<div class="col-sm-10">
-		<c:if test="${!empty ${associate?uncap_first}s }">
+		<c:if test="${r'${'}!empty ${associate?uncap_first}s ${r'}'}">
 		<#if model.widgets[associate_index] == "select">
 		<form:select class="form-control" path="${associate?uncap_first}.id" items="${associate?uncap_first}s" itemLabel="name" itemValue="id"></form:select>
 		<#elseif model.widgets[associate_index] == "radio">

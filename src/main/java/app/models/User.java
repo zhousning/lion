@@ -25,14 +25,6 @@ public class User {
     private String password;
     
 	private Set<Role> roles = new HashSet<Role>();
-	
-	private Set<Subject> subjects = new HashSet<Subject>();
-	
-	private Set<Question> questions = new HashSet<Question>();
-	
-	private Set<ExamPaper> examPapers = new HashSet<ExamPaper>();
-	
-	private List<Integer> subjectIds = new ArrayList<Integer>();
 
 
     
@@ -60,31 +52,6 @@ public class User {
    		this.password = password;
    	}
    	
-   	
-
-    public List<Integer> getSubjectIds() {
-		return subjectIds;
-	}
-
-	public void setSubjectIds(List<Integer> subjectIds) {
-		this.subjectIds = subjectIds;
-	}
-
-	public Set<ExamPaper> getExamPapers() {
-		return examPapers;
-	}
-
-	public void setExamPapers(Set<ExamPaper> examPapers) {
-		this.examPapers = examPapers;
-	}
-
-	public Set<Question> getQuestions() {
-		return questions;
-	}
-
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
-	}
 
 	public Integer getId() {
         return id;
@@ -136,15 +103,4 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Set<Subject> getSubjects() {
-		return subjects;
-	}
-
-	public void setSubjects(Set<Subject> subjects) {
-		this.subjects = subjects;
-	}
-
-
-
-	
 }

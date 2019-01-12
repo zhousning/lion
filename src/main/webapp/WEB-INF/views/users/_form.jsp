@@ -55,15 +55,5 @@
 			</div>	
 		</div>
 	</div>
-	
-	<div class="col-md-4 col-md-offset-1">
-		<h3>
-			<fmt:message key="subject.type"></fmt:message>
-		</h3>
-		<form:checkboxes path="subjectIds" items="${requestScope.subjects}"
-			element="label class='checkbox-inline'" itemLabel="name"
-			itemValue="id" />
-		<br />
-	</div>
 
 </form:form>

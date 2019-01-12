@@ -11,21 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import app.models.Level;
 import app.models.Role;
 import app.models.User;
 
 @Controller
 @RequestMapping("/seeds")
-public class SeedController  extends BaseController  {
-	
-	
+public class SeedController  extends BaseController  {	
 	@RequestMapping("/initdata")
 	@ResponseBody
 	public Map<String, String> initData() {
 		initRole();
 		initUser();
-		initLevel();
 		Map<String, String> status = new HashMap<String, String>();
 		status.put("status", "success");
 		return status;
@@ -46,18 +42,6 @@ public class SeedController  extends BaseController  {
 		//roles.add(teacherRole);
 		admin.setRoles(roles);
 		userService.createUser(admin);
-	}
-	
-	private void initLevel() {
-		Level easy = new Level(messageSource.getMessage("level.easy", null, null));
-		Level moderate = new Level(messageSource.getMessage("level.moderate", null, null));
-		Level hard = new Level(messageSource.getMessage("level.hard", null, null));
-		Level extreme = new Level(messageSource.getMessage("level.extreme", null, null));
-		
-		levelService.save(easy);
-		levelService.save(moderate);
-		levelService.save(hard);
-		levelService.save(extreme);
 	}
 	
 	private void initRole() {

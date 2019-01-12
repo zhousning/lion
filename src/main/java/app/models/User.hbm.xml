@@ -20,23 +20,5 @@
 			</many-to-many>
 		</set>
 
-		<set name="subjects" table="users_subjects" lazy="false"
-			cascade="save-update">
-			<key column="user_id"></key>
-			<many-to-many class="Subject" column="subject_id">
-			</many-to-many>
-		</set>
-
-		<set name="questions" table="questions" inverse="false" lazy="false">
-			<key column="user_id" />
-			<one-to-many class="Question" />
-		</set>
-
-		<set name="examPapers" table="exam_papers"
-			inverse="false" lazy="false">
-			<key column="user_id" />
-			<one-to-many class="ExamPaper" />
-		</set>
-
 	</class>
 </hibernate-mapping>

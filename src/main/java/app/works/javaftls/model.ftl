@@ -23,7 +23,7 @@ public class ${model.name} {
 	<#list model.associateTypes as associate>
 	<#if associate == "one-to-many" || associate == "many-to-many">
 	private Set<${model.associateObjects[associate_index]?cap_first}> ${model.associateObjects[associate_index]?uncap_first}s = new HashSet<${model.associateObjects[associate_index]?cap_first}>();
-	private List<Integer> ${associate?uncap_first}Ids = new ArrayList<Integer>();
+	private List<Integer> ${model.associateObjects[associate_index]?uncap_first}Ids = new ArrayList<Integer>();
 	<#elseif associate == "many-to-one">
 	private ${model.associateObjects[associate_index]?cap_first} ${model.associateObjects[associate_index]?uncap_first};	
 	</#if>
@@ -64,12 +64,12 @@ public class ${model.name} {
 		this.${model.associateObjects[associate_index]?uncap_first}s = ${model.associateObjects[associate_index]?uncap_first}s;
 	}
 	
-	public List<Integer> get${associate?cap_first}Ids() {
-		return ${associate?uncap_first}Ids;
+	public List<Integer> get${model.associateObjects[associate_index]?cap_first}Ids() {
+		return ${model.associateObjects[associate_index]?uncap_first}Ids;
 	}
 	
-	public void set${associate?cap_first}Ids(List<Integer> ${associate?uncap_first}Ids) {
-		this.${associate?uncap_first}Ids = ${associate?uncap_first}Ids;
+	public void set${model.associateObjects[associate_index]?cap_first}Ids(List<Integer> ${model.associateObjects[associate_index]?uncap_first}Ids) {
+		this.${model.associateObjects[associate_index]?uncap_first}Ids = ${model.associateObjects[associate_index]?uncap_first}Ids;
 	}
 	<#elseif associate == "many-to-one">
 	public ${model.associateObjects[associate_index]?cap_first} get${model.associateObjects[associate_index]?cap_first}() {

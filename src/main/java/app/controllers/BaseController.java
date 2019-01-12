@@ -12,7 +12,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.PropertiesEditor;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -22,45 +26,22 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import com.sun.mail.iap.Literal;
 
-import app.models.ExamPaper;
-import app.models.Level;
 import app.models.Monkey;
 import app.models.Role;
 import app.models.User;
-import app.services.ExamPaperService;
-import app.services.ExamPointService;
-import app.services.LevelService;
-import app.services.QuestionService;
 import app.services.RoleService;
-import app.services.SubjectService;
 import app.services.UsersService;
 
 @Controller
 public class BaseController {
 	
 	@Autowired
-	RoleService roleService;	
-
-	@Autowired
-	SubjectService subjectService;
-	
+	RoleService roleService;
 	@Autowired
 	UsersService userService;
 	
 	@Autowired
-	QuestionService questionService;
-	
-	@Autowired
-	ExamPaperService examPaperService;
-	
-	@Autowired
-	ExamPointService examPointService;
-	
-	@Autowired
 	ResourceBundleMessageSource messageSource;
-	
-	@Autowired
-	LevelService levelService;
 	
 /*	protected String multipleType = messageSource.getMessage("questions.multiple.code", null, null);
 	protected String essayType = messageSource.getMessage("questions.essay.code", null, null);*/
@@ -195,55 +176,31 @@ public class BaseController {
 		return user;
 	}
     
-	protected void currentUserSubjcets(Map<String, Object> map) {
-		Set<app.models.Subject> subjects = currentUser().getSubjects();
-		map.put("subjects", subjects);
-	}
-	
-	protected void currentUserQuestions(Map<String, Object> map) {
-		Set<app.models.Question> questions = currentUser().getQuestions();
-		map.put("questions", questions);
-	}
-	
-	protected void currentUserExamPapers(Map<String, Object> map) {
-		Set<ExamPaper> papers = currentUser().getExamPapers();
-		map.put("examPapers", papers);
-	}
-	
-	protected void currentUserSubjectExamPapers(Map<String, Object> map) {
-		Set<app.models.Subject> subjects = currentUser().getSubjects();
-		List<ExamPaper> examPapers = new ArrayList<ExamPaper>();
-		Iterator<app.models.Subject> iterator = subjects.iterator();
-		while (iterator.hasNext()) {
-			app.models.Subject subject = (app.models.Subject) iterator.next();
-			Set<ExamPaper> papers = subject.getExamPapers();
-			Iterator<ExamPaper> paperIterator = papers.iterator();
-			while (paperIterator.hasNext()) {
-				ExamPaper examPaper = (ExamPaper) paperIterator.next();
-				examPapers.add(examPaper);
-			}
+    protected void setPassword(User user) {
+    	User baseUser = new User();
+    	if (user.getId() != null) {
+    		baseUser = userService.getUserById(user.getId());
 		}
-		map.put("examPapers", examPapers);
-	}
-	
-	protected void levels(Map<String, Object> map) {
-		List<Level> levels = levelService.findAll();
-		map.put("levels", levels);
-	}
+		if (!baseUser.getPassword().equals(user.getPassword())) {
+			String principal = user.getEmail();
+			String hashAlgorithmName = "MD5";
+			Object credentials = user.getPassword();
+			Object salt = ByteSource.Util.bytes(principal);
+			int hashIterations = 1024;
 
-	protected void beforeUserEdit(User user, Map<String, Object> map) {
-		Set<app.models.Subject> userSubjects = user.getSubjects();	
-		Iterator<app.models.Subject> userIterator = userSubjects.iterator();
-		List<Integer> subjectIds = new ArrayList<Integer>();		
-		
-		while (userIterator.hasNext()) {
-			app.models.Subject userSubject = (app.models.Subject) userIterator.next();
-			subjectIds.add(userSubject.getId());
+			Object password = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
+			user.setPassword(password.toString());
 		}
-		
-		List<app.models.Subject> subjects = subjectService.findAll();		
-		user.setSubjectIds(subjectIds);
-		map.put("subjects", subjects);
-		map.put("user", user);
+	}
+    
+    protected void updateUserSession(User user) {
+    	User baseUser = userService.getUserById(user.getId());
+    	if (!(baseUser.getEmail().equals(user.getEmail()))) {
+			org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();
+			PrincipalCollection principalCollection = subject.getPrincipals();
+			String realmName = principalCollection.getRealmNames().iterator().next();
+			PrincipalCollection newPrincipalCollection = new SimplePrincipalCollection(user.getEmail(), realmName);
+			subject.runAs(newPrincipalCollection);
+		}
 	}
 }

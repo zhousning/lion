@@ -68,14 +68,7 @@ public class ShirosController extends BaseController {
 		String principal = user.getEmail();
 		User selectUser = userService.getUserByEmail(principal);
 		if (selectUser == null) {
-			String hashAlgorithmName = "MD5";
-			Object credentials = user.getPassword();
-			Object salt = ByteSource.Util.bytes(principal);;
-			int hashIterations = 1024;
-			
-			Object password = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
-			user.setPassword(password.toString());
-
+			setPassword(user);
 			initRole(user);
 
 			userService.insert(user);
@@ -138,14 +131,9 @@ public class ShirosController extends BaseController {
 		String sessionCode = (String) session.getAttribute("code");
 		if (code!=null && sessionCode.equals(code)) {
 			String principal = user.getEmail();
-			String hashAlgorithmName = "MD5";
-			Object credentials = user.getPassword();
-			Object salt = ByteSource.Util.bytes(principal);
-			int hashIterations = 1024;
-			Object password = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
-
+			
 			User myUser = userService.getUserByEmail(principal);
-			myUser.setPassword(password.toString());
+			setPassword(myUser);
 			userService.updateUser(myUser);
 			return "redirect:/users/sign_in";
 		} else {
