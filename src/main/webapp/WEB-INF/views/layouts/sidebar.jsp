@@ -33,6 +33,15 @@
 					<li><a href="roles/index"><fmt:message key="roles.index"></fmt:message></a></li>
 					<li><a href="roles/new"><fmt:message key="roles.new"></fmt:message></a></li>
 				</ul>
+				<li data-toggle="collapse" data-target="#permissions"
+					class="collapsed
+			active"><a><i
+						class="fa fa-gift fa-lg"></i> <fmt:message key="permissions.manage"></fmt:message>
+						<span class="arrow"></span></a></li>
+				<ul class="sub-menu collapse" id="permissions">
+					<li><a href="permissions/index"><fmt:message key="permissions.index"></fmt:message></a></li>
+					<li><a href="permissions/new"><fmt:message key="permissions.new"></fmt:message></a></li>
+				</ul>
 			</shiro:hasAnyRoles>
 
 			<li data-toggle="collapse" data-target="#new" class="collapsed">

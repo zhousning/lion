@@ -1,12 +1,16 @@
 package app.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Role {
 	private Integer id;  
 	private String name;
 	private Set<User> users = new HashSet<User>();
+	private Set<Permission> permissions = new HashSet<Permission>();
+	private List<Integer> permissionIds = new ArrayList<Integer>();
 	
 	public Role(){}
 	
@@ -16,6 +20,27 @@ public class Role {
 		this.name = name;
 	}
 
+
+	
+
+	public Set<Permission> getPermissions() {
+		return permissions;
+	}
+
+
+	public void setPermissions(Set<Permission> permissions) {
+		this.permissions = permissions;
+	}
+
+
+	public List<Integer> getPermissionIds() {
+		return permissionIds;
+	}
+
+
+	public void setPermissionIds(List<Integer> permissionIds) {
+		this.permissionIds = permissionIds;
+	}
 
 
 	public Integer getId() {

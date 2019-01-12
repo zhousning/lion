@@ -22,6 +22,7 @@
 	</#list>
 
 	<#list model.associateObjects as associate>
+	<#if (model.widgets[associate_index] != "none")>
 	<div class="form-group">
 		<label for="${associate?uncap_first}" class="col-sm-2 control-label"><fmt:message
 			key="${associate?uncap_first}.name"></fmt:message></label>
@@ -37,6 +38,7 @@
 		</c:if>
 		</div>
 	</div>
+	</#if>
 	</#list>
 	
 	<div class="form-group">
@@ -44,7 +46,7 @@
 			<button type="submit" class="btn btn-success"><fmt:message key="btn.save"></fmt:message></button>
 		</div>
 		<div class="col-sm-offset-2 col-sm-4">
-			<a href="${model.name?uncap_first}s" type="button" class="btn btn-warning"><fmt:message key="btn.back"></fmt:message></a>
+			<a href="${model.name?uncap_first}s/index" type="button" class="btn btn-warning"><fmt:message key="btn.back"></fmt:message></a>
 		</div>
 	</div>
 </form:form>

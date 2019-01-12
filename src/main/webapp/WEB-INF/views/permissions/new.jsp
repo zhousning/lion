@@ -15,10 +15,10 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="UTF-8">
-<title>Model New</title>
+<title><fmt:message key="permissions.new"></fmt:message></title>
 <%@include file="/WEB-INF/views/layouts/common.jsp"%>
-<link href="static/stylesheets/models.css" rel="stylesheet">
-<script src="static/javascripts/models.js"></script>
+<link href="static/stylesheets/permissions.css" rel="stylesheet">
+<script src="static/javascripts/permissions.js"></script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
@@ -31,12 +31,12 @@
 				<div class="container-fluid">
 					<div class="page-header">
 						<h1>
-							Model New
+							<fmt:message key="permissions.new"></fmt:message>
 						</h1>
 					</div>
 					<div class="row">
-						<div class="col-md-12">
-							<%@ include file="/WEB-INF/views/models/_form.jsp"%>
+						<div class="col-md-8 col-md-offset-2">
+							<%@ include file="/WEB-INF/views/permissions/_form.jsp"%>
 						</div>
 					</div>
 				</div>

@@ -13,10 +13,10 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="UTF-8">
-<title><fmt:message key="${model.name?uncap_first}s.show"></fmt:message></title>
+<title><fmt:message key="permissions.show"></fmt:message></title>
 <%@ include file="/WEB-INF/views/layouts/common.jsp"%>
-<link href="static/stylesheets/${model.name?uncap_first}s.css" rel="stylesheet">
-<script src="static/javascripts/${model.name?uncap_first}s.js"></script>
+<link href="static/stylesheets/permissions.css" rel="stylesheet">
+<script src="static/javascripts/permissions.js"></script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/layouts/header.jsp"%>
@@ -29,18 +29,18 @@
 				<div class="container-fluid">
 					<div class="page-header">
 						<h1>
-							<fmt:message key="${model.name?uncap_first}s.show"></fmt:message>
+							<fmt:message key="permissions.show"></fmt:message>
 						</h1>
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-sm-1">
-									<a href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id ${r'}'}/edit"
+									<a href="permissions/${permission.id }/edit"
 												class="btn btn-success"><fmt:message key="btn.edit"></fmt:message></a>
 								</div>
 								<div class="col-sm-1">
-									<a href="${model.name?uncap_first}s/index" type="button" class="btn btn-warning"><fmt:message
+									<a href="permissions/index" type="button" class="btn btn-warning"><fmt:message
 											key="btn.back"></fmt:message></a>
 								</div>
 							</div>
@@ -49,16 +49,14 @@
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<#list model.attrTypes as type>
-										<th><fmt:message key="${model.name?uncap_first}.${model.attrNames[type_index]}"></fmt:message></th>
-										</#list>
+										<th><fmt:message key="permission.name"></fmt:message></th>
+										<th><fmt:message key="permission.url"></fmt:message></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<#list model.attrTypes as type>
-										<td>${r'${'}${model.name?uncap_first}.${model.attrNames[type_index]}${r'}'}</td>
-										</#list>
+										<td>${permission.name}</td>
+										<td>${permission.url}</td>
 									</tr>
 								</tbody>
 							</table>

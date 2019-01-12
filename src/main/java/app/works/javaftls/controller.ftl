@@ -81,13 +81,13 @@ public class ${model.name}Controller extends BaseController {
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public String destroy(@PathVariable("id") Integer id) {
 		${model.name?uncap_first}Service.deleteById(id);
-		return "redirect:/${model.name?uncap_first}s";
+		return "redirect:/${model.name?uncap_first}s/index";
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public String create(@Valid ${model.name} ${model.name?uncap_first}, Errors result, Map<String, Object> map
 		<#list model.associateTypes as associate>
-		<#if model.widgets[associate_index] != "none" && associate == "one-to-many" || associate == "many-to-many">
+		<#if (model.widgets[associate_index] != "none") && (associate == "one-to-many" || associate == "many-to-many")>
 		, @RequestParam(value = "${model.associateObjects[associate_index]?cap_first}Ids", required = false) Integer[] ${model.associateObjects[associate_index]?uncap_first}Ids
 		<#elseif model.widgets[associate_index] != "none" && associate == "many-to-one">
 		, @RequestParam(value="${model.associateObjects[associate_index]?uncap_first}.id", required=false) Integer ${model.associateObjects[associate_index]?uncap_first}Id
@@ -107,7 +107,7 @@ public class ${model.name}Controller extends BaseController {
 		<#if (model.associateObjects?size > 0)>
 		setAssociate(${model.name?uncap_first}
 		<#list model.associateTypes as associate>
-		<#if model.widgets[associate_index] != "none" && associate == "one-to-many" || associate == "many-to-many">
+		<#if (model.widgets[associate_index] != "none") && (associate == "one-to-many" || associate == "many-to-many")>
 		, ${model.associateObjects[associate_index]?uncap_first}Ids
 		<#elseif model.widgets[associate_index] != "none" && associate == "many-to-one">
 		, ${model.associateObjects[associate_index]?uncap_first}Id
@@ -143,7 +143,7 @@ public class ${model.name}Controller extends BaseController {
 		<#if (model.associateObjects?size > 0)>
 		setAssociate(${model.name?uncap_first}
 		<#list model.associateTypes as associate>
-		<#if model.widgets[associate_index] != "none" && associate == "one-to-many" || associate == "many-to-many">
+		<#if (model.widgets[associate_index] != "none") && (associate == "one-to-many" || associate == "many-to-many")>
 		, ${model.associateObjects[associate_index]?uncap_first}Ids
 		<#elseif model.widgets[associate_index] != "none" && associate == "many-to-one">
 		, ${model.associateObjects[associate_index]?uncap_first}Id

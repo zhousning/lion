@@ -7,6 +7,8 @@
 			data-target=".navHeaderCollapse"></button>
 		<div class="collapse navbar-collapse navHeaderCollapse">
 			<ul class="nav navbar-nav navbar-right">
+				<li class="active"><a href="models/new"> Model
+					</a></li>
 				<shiro:guest>
 					<li class="active"><a href="users/sign_in"> <fmt:message
 								key="system.signin"></fmt:message>

@@ -8,10 +8,8 @@
 		<id name="id">
 			<generator class="native" />
 		</id>
-		<#list model.attrTypes as type>
-		<#if type != "Set">
-		<property name="${model.attrNames[type_index]}" />
-		</#if>
+		<#list model.attrNames as name>
+		<property name="${name}" />
 		</#list>
 		
 		<#list model.associateTypes as associate>

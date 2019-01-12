@@ -65,7 +65,7 @@ public class UsersController extends BaseController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String destroy(@PathVariable("id") Integer id) {
 		userService.deleteById(id);
-		return "redirect:/users";
+		return "redirect:/users/index";
 	}
 
 	@RequestMapping("/new")

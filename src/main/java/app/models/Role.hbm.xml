@@ -16,5 +16,10 @@
 			<many-to-many class="User" column="user_id">
 			</many-to-many>
 		</set>
+		<set name="permissions" table="permissions_roles" lazy="false">
+			<key column="role_id"></key>
+			<many-to-many class="Permission" column="permission_id">
+			</many-to-many>
+		</set>
 	</class>
 </hibernate-mapping>
