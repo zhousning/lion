@@ -46,20 +46,20 @@ public class RolesTest {
 	@Test
 	public void selectByName() {
 		Role role = roleService.findByName(messageSource.getMessage("roles.admin", null, null));
-		User user = userService.getUserById(4);
+		User user = userService.findById(4);
 		System.out.println(user.getRoles().contains(role));
 	}
 
 	@Test
 	public void delete() {
-		User newLeader = userService.getUserById(4);
+		User newLeader = userService.findById(4);
 		Role defaultRole = roleService.findByName(messageSource.getMessage("roles.default", null, null));
 		Role leaderRole = roleService.findByName(messageSource.getMessage("roles.leader", null, null));
 		Set<Role> newRoles = new HashSet<Role>();
 		newRoles.add(leaderRole);
 		newRoles.add(defaultRole);
 		newLeader.setRoles(newRoles);
-		userService.updateUser(newLeader);
+		userService.update(newLeader);
 	}
 
 	@Test

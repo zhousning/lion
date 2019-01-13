@@ -23,26 +23,26 @@ public class UsersController extends BaseController {
 	@ModelAttribute
 	public void getUser(@RequestParam(value = "id", required = false) Integer id, Map<String, Object> map) {
 		if (id != null) {
-			System.out.println(userService.getUserById(id).toString());
-			map.put("user", userService.getUserById(id));
+			System.out.println(userService.findById(id).toString());
+			map.put("user", userService.findById(id));
 		}
 	}
 
 	@RequestMapping("/index")
 	public String index(Map<String, Object> map) {
-		map.put("users", userService.getUsers());
+		map.put("users", userService.findAll());
 		return "users/index";
 	}
 
 	@RequestMapping(value = "/{id}")
 	public String show(@PathVariable("id") Integer id, Map<String, Object> map) {
-		map.put("user", userService.getUserById(id));
+		map.put("user", userService.findById(id));
 		return "users/show";
 	}
 
 	@RequestMapping("/{id}/edit")
 	public String edit(@PathVariable("id") Integer id, Map<String, Object> map) {
-		User user = userService.getUserById(id);
+		User user = userService.findById(id);
 		map.put("user", user);
 		return "users/edit";
 	}
@@ -57,7 +57,7 @@ public class UsersController extends BaseController {
 		}
 		
 		setPassword(user);
-		userService.updateUser(user);
+		userService.update(user);
 
 		return "redirect:/users/" + user.getId().toString();
 	}
@@ -87,7 +87,7 @@ public class UsersController extends BaseController {
 		if (selectUser == null) {
 			setPassword(user);
 			initRole(user);
-			userService.insert(user);
+			userService.save(user);
 			return "redirect:/users/index";
 		} else {
 			return "users/new";

@@ -1,18 +1,18 @@
 <form:form action="models" method="POST" modelAttribute="model"
 	class="form-horizontal">
-	
+
 	<div class="form-group">
 		<label for="name" class="col-sm-2 control-label">Model Name</label>
 		<div class="col-sm-3">
-			<form:input type="text" class="form-control"
-				placeholder="name" path="name" />
+			<form:input type="text" class="form-control" placeholder="name"
+				path="name" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="title" class="col-sm-2 control-label">Model Title</label>
 		<div class="col-sm-3">
-			<form:input type="text" class="form-control"
-				placeholder="title" path="title" />
+			<form:input type="text" class="form-control" placeholder="title"
+				path="title" />
 		</div>
 	</div>
 	<div class="form-group">
@@ -31,11 +31,11 @@
 			</div>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" placeholder="label"
-					name="labels" value="name"/>
+					name="labels" value="name" />
 			</div>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" placeholder="name"
-					name="attrNames" value="name"/>
+					name="attrNames" value="name" />
 			</div>
 			<div class="col-sm-2">
 				<select class="form-control" name="constraints">
@@ -43,6 +43,17 @@
 						<option value="${constraint }">${constraint }</option>
 					</c:forEach>
 				</select>
+			</div>
+			<div class="col-sm-2">
+				<select class="form-control" name="attrWidgets">
+					<c:forEach items="${attrWidgets}" var="attrWidget">
+						<option value="${attrWidget }">${attrWidget }</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-sm-1">
+				<button type="button" class="btn btn-danger btn-delete-attribute"
+					onclick=" deleteAttr(this)">Delete</button>
 			</div>
 		</div>
 		<div class="form-group attr-content">
@@ -68,8 +79,16 @@
 					</c:forEach>
 				</select>
 			</div>
+			<div class="col-sm-2">
+				<select class="form-control" name="attrWidgets">
+					<c:forEach items="${attrWidgets}" var="attrWidget">
+						<option value="${attrWidget }">${attrWidget }</option>
+					</c:forEach>
+				</select>
+			</div>
 			<div class="col-sm-1">
-				<button type="button" class="btn btn-danger btn-delete-attribute" onclick=" deleteAttr(this)">Delete</button>
+				<button type="button" class="btn btn-danger btn-delete-attribute"
+					onclick=" deleteAttr(this)">Delete</button>
 			</div>
 		</div>
 	</div>
@@ -100,7 +119,8 @@
 				</select>
 			</div>
 			<div class="col-sm-1">
-				<button type="button" class="btn btn-danger btn-delete-associate" onclick="deleteAssociate(this)">Delete</button>
+				<button type="button" class="btn btn-danger btn-delete-associate"
+					onclick="deleteAssociate(this)">Delete</button>
 			</div>
 		</div>
 	</div>

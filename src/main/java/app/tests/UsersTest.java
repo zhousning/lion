@@ -38,12 +38,12 @@ public class UsersTest {
 	
 	@Test
 	public void testRole() {
-		User oldLeader = userService.getUserById(2);
+		User oldLeader = userService.findById(2);
 		Set<Role> oldRoles = new HashSet<Role>();
 		Role defaultRole = roleService.findByName(messageSource.getMessage("roles.default", null, null));
 		oldRoles.add(defaultRole);
 		oldLeader.setRoles(oldRoles);
-		userService.updateUser(oldLeader);
+		userService.update(oldLeader);
 	}
 	
 	@Test
@@ -62,7 +62,7 @@ public class UsersTest {
 	
 	@Test
 	public void getUsers() {
-		List<User> users = userService.getUsers();
+		List<User> users = userService.findAll();
 		Iterator<User> iterator = users.iterator();
 		while (iterator.hasNext()) {
 			User user = (User)iterator.next();
@@ -78,7 +78,7 @@ public class UsersTest {
 		roles.add(new Role("role3"));
 		User user = new User("zn", "15763703199", "341", "481790374");
 		user.setRoles(roles);
-		userService.createUser(user);
+		userService.save(user);
 	}
 	
 	@Test
@@ -89,7 +89,7 @@ public class UsersTest {
 	@Test
 	public void save() {
 		User user = new User("zn", null, "nnnn");
-		userService.createUser(user);
+		userService.save(user);
 	}
 	
 	@Test

@@ -6,19 +6,15 @@
 	</c:if>
 	
 	<#list model.attrTypes as type>
+	<#if model.attrWidgets[type_index] != "none">
 	<div class="form-group">
 		<label for="${model.attrNames[type_index]}" class="col-sm-2 control-label"><fmt:message key="${model.name?uncap_first}.${model.attrNames[type_index]}"></fmt:message></label>
 		<div class="col-sm-10">
-			<#if type == "String">
-			<form:input type="text" class="form-control" path="${model.attrNames[type_index]}" />
-			<#elseif type == "Integer" || type == "Long">
-			<form:input type="number" class="form-control" path="${model.attrNames[type_index]}" />
-			<#elseif type == "Date">
-			<form:input type="date" class="form-control" path="${model.attrNames[type_index]}" />
-			</#if>
+			<form:input  type="${model.attrWidgets[type_index]}" class="form-control" path="${model.attrNames[type_index]}" <#if model.attrWidgets[type_index]=="textarea">rows="10" cols="20"</#if> />
 			<form:errors path="${model.attrNames[type_index]}"></form:errors>
 		</div>
 	</div>
+	</#if>
 	</#list>
 
 	<#list model.associateObjects as associate>
@@ -29,11 +25,11 @@
 		<div class="col-sm-10">
 		<c:if test="${r'${'}!empty ${associate?uncap_first}s ${r'}'}">
 		<#if model.widgets[associate_index] == "select">
-		<form:select class="form-control" path="${associate?uncap_first}.id" items="${associate?uncap_first}s" itemLabel="name" itemValue="id"></form:select>
+		<form:select class="form-control" path="${associate?uncap_first}.id" items="${r'${'}${associate?uncap_first}s${r'}'}" itemLabel="name" itemValue="id"></form:select>
 		<#elseif model.widgets[associate_index] == "radio">
-		<form:radiobuttons items="${associate?uncap_first}s" path="${associate?uncap_first}.id" itemLabel="name" itemValue="id"/>
+		<form:radiobuttons path="${associate?uncap_first}.id" items="${r'${'}${associate?uncap_first}s${r'}'}" itemLabel="name" itemValue="id"/>
 		<#elseif model.widgets[associate_index] == "checkbox">
-		<form:checkboxes items="${associate?uncap_first}s" path="${associate?uncap_first}Ids" itemLabel="name" itemValue="id"/>
+		<form:checkboxes path="${associate?uncap_first}Ids" items="${r'${'}${associate?uncap_first}s${r'}'}" itemLabel="name" itemValue="id"/>
 		</#if>
 		</c:if>
 		</div>

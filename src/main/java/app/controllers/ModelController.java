@@ -16,6 +16,8 @@ import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
@@ -42,24 +44,35 @@ public class ModelController {
 		List<String> constraints = new ArrayList<String>();
 		constraints.add("none");
 		constraints.add("@NotBlank");
+		constraints.add("@NumberFormat");
+		constraints.add("@DateTimeFormat(pattern=&quot;yyyy-MM-dd&quot;)");
+		constraints.add("@NumberFormat(pattern=&quot;###########&quot;)");
 		constraints.add("@Email");
 
 		List<String> associateTypes = new ArrayList<String>();
 		associateTypes.add("none");
 		associateTypes.add("one-to-many");
-		associateTypes.add("many-to-one");
 		associateTypes.add("many-to-many");
+		associateTypes.add("many-to-one");
 		
 		List<String> widgets = new ArrayList<String>();
 		widgets.add("none");
 		widgets.add("select");
 		widgets.add("radio");
 		widgets.add("checkbox");
-
+		
+		List<String> attrWidgets = new ArrayList<String>();
+		attrWidgets.add("text");
+		attrWidgets.add("number");
+		attrWidgets.add("textarea");
+		attrWidgets.add("date");
+		attrWidgets.add("none");
+		
 		map.put("attrTypes", attrTypes);
 		map.put("constraints", constraints);
 		map.put("associateTypes", associateTypes);
 		map.put("widgets", widgets);
+		map.put("attrWidgets", attrWidgets);
 		map.put("model", new Model());
 		return "models/new";
 	}

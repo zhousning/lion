@@ -11,45 +11,13 @@ import app.models.User;
 import app.services.UserService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 	
 	@Autowired
 	UserDao userDao;
 
-	public User getUserById(Integer id) {
-		User user = null;
-		if (id != null) {
-			user = userDao.findById(id);
-		}
-		return user;
-	}
-
-	public List<User> getUsers() {
-		return userDao.findAll();
-	}
-
-	public Integer createUser(User user) {
-		userDao.save(user);
-		return user.getId();
-	}
-
-	public Integer updateUser(User user) {
-		userDao.update(user);
-		return  user.getId();
-	}
-
-	public void deleteById(Integer id) {
-		User user = userDao.findById(id);
-		userDao.delete(user);
-	}
-
 	public User getUserByEmail(String principal) {
 		return userDao.selectByEmail(principal);
-	}
-
-	public User insert(User user) {
-		userDao.save(user);
-		return user;
 	}
 
 }

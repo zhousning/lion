@@ -41,7 +41,7 @@ public class SeedController  extends BaseController  {
 		roles.add(adminRole);
 		//roles.add(teacherRole);
 		admin.setRoles(roles);
-		userService.createUser(admin);
+		userService.save(admin);
 	}
 	
 	private void initRole() {

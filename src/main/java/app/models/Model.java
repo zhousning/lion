@@ -13,6 +13,7 @@ public class Model {
 	private List<String> associateTypes = new ArrayList<String>();
 	private List<String> associateObjects = new ArrayList<String>();
 	private List<String> widgets = new ArrayList<String>();
+	private List<String> attrWidgets = new ArrayList<String>();
 	
 	public Model() {
 		super();
@@ -34,6 +35,15 @@ public class Model {
 		this.constraints = constraints;
 		this.associateTypes = associateTypes;
 		this.associateObjects = associateObjects;
+	}
+
+	
+	public List<String> getAttrWidgets() {
+		return attrWidgets;
+	}
+
+	public void setAttrWidgets(List<String> attrWidgets) {
+		this.attrWidgets = attrWidgets;
 	}
 
 	public String getName() {

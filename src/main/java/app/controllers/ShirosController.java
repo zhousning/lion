@@ -44,8 +44,8 @@ public class ShirosController extends BaseController {
 	@ModelAttribute
 	public void getUser(@RequestParam(value="id", required=false) Integer id, Map<String, Object> map) {
 		if (id != null) {
-			System.out.println(userService.getUserById(id).toString());
-			map.put("user", userService.getUserById(id));
+			System.out.println(userService.findById(id).toString());
+			map.put("user", userService.findById(id));
 		}
 	}
 	
@@ -71,7 +71,7 @@ public class ShirosController extends BaseController {
 			setPassword(user);
 			initRole(user);
 
-			userService.insert(user);
+			userService.save(user);
 			return "redirect:/users/sign_in";
 		} else {
 			//throw new ConstraintViolationException(constraintViolations)
@@ -134,7 +134,7 @@ public class ShirosController extends BaseController {
 			
 			User myUser = userService.getUserByEmail(principal);
 			setPassword(myUser);
-			userService.updateUser(myUser);
+			userService.update(myUser);
 			return "redirect:/users/sign_in";
 		} else {
 			return "redirect:/users/passwords/new";

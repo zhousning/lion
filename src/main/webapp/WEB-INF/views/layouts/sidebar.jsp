@@ -42,6 +42,15 @@
 					<li><a href="permissions/index"><fmt:message key="permissions.index"></fmt:message></a></li>
 					<li><a href="permissions/new"><fmt:message key="permissions.new"></fmt:message></a></li>
 				</ul>
+				<li data-toggle="collapse" data-target="#jobs"
+					class="collapsed
+			active"><a><i
+						class="fa fa-gift fa-lg"></i> <fmt:message key="jobs.manage"></fmt:message>
+						<span class="arrow"></span></a></li>
+				<ul class="sub-menu collapse" id="jobs">
+					<li><a href="jobs/index"><fmt:message key="jobs.index"></fmt:message></a></li>
+					<li><a href="jobs/new"><fmt:message key="jobs.new"></fmt:message></a></li>
+				</ul>
 			</shiro:hasAnyRoles>
 
 			<li data-toggle="collapse" data-target="#new" class="collapsed">

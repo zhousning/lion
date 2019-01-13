@@ -24,14 +24,14 @@ public class PersonalController extends BaseController {
 	
 	@RequestMapping("/{id}/edit")
 	public String edit(@PathVariable("id") Integer id, Map<String, Object> map) {
-		User user = userService.getUserById(id);
+		User user = userService.findById(id);
 		map.put("user", user);
 		return "personals/edit";
 	}
 	
 	@RequestMapping(value = "/{id}")
 	public String show(@PathVariable("id") Integer id, Map<String, Object> map) {
-		map.put("user", userService.getUserById(id));
+		map.put("user", userService.findById(id));
 		return "personals/show";
 	}
 	
@@ -45,7 +45,7 @@ public class PersonalController extends BaseController {
 		}
 		
 		setPassword(user);
-		userService.updateUser(user);	
+		userService.update(user);	
 		updateUserSession(user);
 
 		return "redirect:/personals/" + user.getId().toString();

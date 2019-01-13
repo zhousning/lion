@@ -9,7 +9,7 @@
 			<generator class="native" />
 		</id>
 		<#list model.attrNames as name>
-		<property name="${name}" />
+		<property name="${name}" <#if model.widgets[name_index] == "textarea">type="text"<#elseif  model.widgets[name_index] == "date">type="date"</#if> />
 		</#list>
 		
 		<#list model.associateTypes as associate>

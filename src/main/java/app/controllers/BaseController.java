@@ -181,7 +181,7 @@ public class BaseController {
     
     protected void setPassword(User user) {
     	if (user.getId() != null) {
-    		User baseUser = userService.getUserById(user.getId());
+    		User baseUser = userService.findById(user.getId());
     		if (!baseUser.getPassword().equals(user.getPassword())) {
     			updatePassword(user);
     		}
@@ -203,7 +203,7 @@ public class BaseController {
 	}
     
     protected void updateUserSession(User user) {
-    	User baseUser = userService.getUserById(user.getId());
+    	User baseUser = userService.findById(user.getId());
     	if (!(baseUser.getEmail().equals(user.getEmail()))) {
 			org.apache.shiro.subject.Subject subject = SecurityUtils.getSubject();
 			PrincipalCollection principalCollection = subject.getPrincipals();

@@ -88,7 +88,7 @@ public class ${model.name}Controller extends BaseController {
 	public String create(@Valid ${model.name} ${model.name?uncap_first}, Errors result, Map<String, Object> map
 		<#list model.associateTypes as associate>
 		<#if (model.widgets[associate_index] != "none") && (associate == "one-to-many" || associate == "many-to-many")>
-		, @RequestParam(value = "${model.associateObjects[associate_index]?cap_first}Ids", required = false) Integer[] ${model.associateObjects[associate_index]?uncap_first}Ids
+		, @RequestParam(value = "${model.associateObjects[associate_index]?uncap_first}Ids", required = false) Integer[] ${model.associateObjects[associate_index]?uncap_first}Ids
 		<#elseif model.widgets[associate_index] != "none" && associate == "many-to-one">
 		, @RequestParam(value="${model.associateObjects[associate_index]?uncap_first}.id", required=false) Integer ${model.associateObjects[associate_index]?uncap_first}Id
 		</#if>
@@ -124,7 +124,7 @@ public class ${model.name}Controller extends BaseController {
 	public String update(@Valid ${model.name} ${model.name?uncap_first}, Errors result, Map<String, Object> map
 		<#list model.associateTypes as associate>
 		<#if model.widgets[associate_index] != "none" && associate == "one-to-many" || associate == "many-to-many">
-		, @RequestParam(value = "${model.associateObjects[associate_index]?cap_first}Ids", required = false) Integer[] ${model.associateObjects[associate_index]?uncap_first}Ids
+		, @RequestParam(value = "${model.associateObjects[associate_index]?uncap_first}Ids", required = false) Integer[] ${model.associateObjects[associate_index]?uncap_first}Ids
 		<#elseif model.widgets[associate_index] != "none" && associate == "many-to-one">
 		, @RequestParam(value="${model.associateObjects[associate_index]?uncap_first}.id", required=false) Integer ${model.associateObjects[associate_index]?uncap_first}Id
 		</#if>
@@ -190,9 +190,9 @@ public class ${model.name}Controller extends BaseController {
 	public void setAssociate(${model.name?cap_first} ${model.name?uncap_first}
 		<#list model.associateTypes as associate>
 		<#if model.widgets[associate_index] != "none" && ( associate == "one-to-many" || associate == "many-to-many" )>
-		, @RequestParam(value = "${model.associateObjects[associate_index]?cap_first}Ids", required = false) Integer[] ${model.associateObjects[associate_index]?uncap_first}Ids
+		, Integer[] ${model.associateObjects[associate_index]?uncap_first}Ids
 		<#elseif model.widgets[associate_index] != "none" && associate == "many-to-one">
-		, @RequestParam(value="${model.associateObjects[associate_index]?uncap_first}.id", required=false) Integer ${model.associateObjects[associate_index]?uncap_first}Id
+		, Integer ${model.associateObjects[associate_index]?uncap_first}Id
 		</#if>
 		</#list>
 	) {
