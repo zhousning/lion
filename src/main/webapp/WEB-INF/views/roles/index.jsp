@@ -72,7 +72,7 @@
 										<td><a href="roles/${role.id }" class="btn btn-info"><fmt:message
 													key="btn.info"></fmt:message></a> <a
 											href="roles/${role.id }/edit" class="btn btn-success"><fmt:message
-													key="btn.edit"></fmt:message></a> <a href="roles/${role.id}"
+													key="btn.edit"></fmt:message></a> <a href="roles/${role.id}/destroy"
 											class="delete btn btn-danger"><fmt:message
 													key="btn.delete"></fmt:message></a></td>
 									</tr>

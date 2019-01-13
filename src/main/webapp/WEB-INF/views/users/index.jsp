@@ -79,7 +79,7 @@
 										<td><a href="users/${user.id }" class="btn btn-info"><fmt:message
 													key="btn.info"></fmt:message></a> <a
 											href="users/${user.id }/edit" class="btn btn-success"><fmt:message
-													key="btn.edit"></fmt:message></a> <a href="users/${user.id}"
+													key="btn.edit"></fmt:message></a> <a href="users/${user.id}/destroy"
 											class="delete btn btn-danger"><fmt:message
 													key="btn.delete"></fmt:message></a></td>
 									</tr>

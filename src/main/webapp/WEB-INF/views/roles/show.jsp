@@ -46,7 +46,7 @@
 												key="btn.edit"></fmt:message></a>
 									</div>
 									<div class="col-sm-offset-2 col-sm-4">
-										<a href="roles" type="button" class="btn btn-warning"><fmt:message
+										<a href="roles/index" type="button" class="btn btn-warning"><fmt:message
 												key="btn.back"></fmt:message></a>
 									</div>
 								</div>

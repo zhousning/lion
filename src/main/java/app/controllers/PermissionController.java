@@ -68,7 +68,7 @@ public class PermissionController extends BaseController {
 		return "permissions/show";
 	}
 
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id}/destroy", method=RequestMethod.DELETE)
 	public String destroy(@PathVariable("id") Integer id) {
 		permissionService.deleteById(id);
 		return "redirect:/permissions/index";

@@ -73,7 +73,7 @@
 										<td><a href="permissions/${permission.id }" class="btn btn-info"><fmt:message
 													key="btn.info"></fmt:message></a> <a
 											href="permissions/${permission.id }/edit" class="btn btn-success"><fmt:message
-													key="btn.edit"></fmt:message></a> <a href="permissions/${permission.id}"
+													key="btn.edit"></fmt:message></a> <a href="permissions/${permission.id}/destroy"
 											class="delete btn btn-danger"><fmt:message
 													key="btn.delete"></fmt:message></a></td>
 									</tr>

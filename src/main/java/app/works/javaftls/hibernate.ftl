@@ -22,8 +22,7 @@
 		<many-to-one name="${model.associateObjects[associate_index]?uncap_first}" column="${model.associateObjects[associate_index]?uncap_first}_id" class="${model.associateObjects[associate_index]?cap_first}"
 			lazy="false" />
 		<#elseif associate == "many-to-many">
-		<set name="${model.associateObjects[associate_index]?uncap_first}s" table="${model.name?uncap_first}s_${model.associateObjects[associate_index]?uncap_first}s" lazy="false"
-			cascade="save-update">
+		<set name="${model.associateObjects[associate_index]?uncap_first}s" table="${model.name?uncap_first}s_${model.associateObjects[associate_index]?uncap_first}s" lazy="false">
 			<key column="${model.name?uncap_first}_id"></key>
 			<many-to-many class="${model.associateObjects[associate_index]?cap_first}" column="${model.associateObjects[associate_index]?uncap_first}_id">
 			</many-to-many>

@@ -5,8 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Role {
-	private Integer id;  
+	private Integer id;
+	@NotBlank
 	private String name;
 	private Set<User> users = new HashSet<User>();
 	private Set<Permission> permissions = new HashSet<Permission>();

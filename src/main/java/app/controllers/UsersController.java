@@ -62,7 +62,7 @@ public class UsersController extends BaseController {
 		return "redirect:/users/" + user.getId().toString();
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}/destroy", method = RequestMethod.DELETE)
 	public String destroy(@PathVariable("id") Integer id) {
 		userService.deleteById(id);
 		return "redirect:/users/index";

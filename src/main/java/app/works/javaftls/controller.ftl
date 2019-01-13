@@ -78,7 +78,7 @@ public class ${model.name}Controller extends BaseController {
 		return "${model.name?uncap_first}s/show";
 	}
 
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/{id}/destroy", method=RequestMethod.DELETE)
 	public String destroy(@PathVariable("id") Integer id) {
 		${model.name?uncap_first}Service.deleteById(id);
 		return "redirect:/${model.name?uncap_first}s/index";
@@ -201,12 +201,7 @@ public class ${model.name}Controller extends BaseController {
 		List<${model.associateObjects[associate_index]?cap_first}> ${model.associateObjects[associate_index]?uncap_first}Data = new ArrayList<${model.associateObjects[associate_index]?cap_first}>();
 		if (${model.associateObjects[associate_index]?uncap_first}Ids != null) {
 			List<${model.associateObjects[associate_index]?cap_first}> ${model.associateObjects[associate_index]?uncap_first}s = ${model.associateObjects[associate_index]?uncap_first}Service.findByIds(${model.associateObjects[associate_index]?uncap_first}Ids);
-			Iterator<${model.associateObjects[associate_index]?cap_first}> iterator = ${model.associateObjects[associate_index]?uncap_first}s.iterator();
-			while (iterator.hasNext()) {
-				${model.associateObjects[associate_index]?cap_first} ${model.associateObjects[associate_index]?uncap_first} = (${model.associateObjects[associate_index]?cap_first}) iterator.next();
-				${model.associateObjects[associate_index]?uncap_first}Service.update(${model.associateObjects[associate_index]?uncap_first});
-				${model.associateObjects[associate_index]?uncap_first}Data.add(${model.associateObjects[associate_index]?uncap_first});
-			}
+			${model.associateObjects[associate_index]?uncap_first}Data = ${model.associateObjects[associate_index]?uncap_first}s;
 		}
 		${model.name?uncap_first}.set${model.associateObjects[associate_index]?cap_first}s(new HashSet<${model.associateObjects[associate_index]?cap_first}>(${model.associateObjects[associate_index]?uncap_first}Data));
 		<#elseif model.widgets[associate_index] != "none" && associate == "many-to-one">

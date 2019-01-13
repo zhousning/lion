@@ -19,6 +19,5 @@
 			<many-to-many class="Role" column="role_id">
 			</many-to-many>
 		</set>
-
 	</class>
 </hibernate-mapping>

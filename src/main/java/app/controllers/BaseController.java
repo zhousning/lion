@@ -29,6 +29,7 @@ import com.sun.mail.iap.Literal;
 import app.models.Monkey;
 import app.models.Role;
 import app.models.User;
+import app.services.PermissionService;
 import app.services.RoleService;
 import app.services.UserService;
 
@@ -36,9 +37,11 @@ import app.services.UserService;
 public class BaseController {
 	
 	@Autowired
+	UserService userService;
+	@Autowired
 	RoleService roleService;
 	@Autowired
-	UserService userService;
+	PermissionService permissionService;
 	
 	@Autowired
 	ResourceBundleMessageSource messageSource;
