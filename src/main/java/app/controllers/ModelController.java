@@ -93,6 +93,10 @@ public class ModelController {
 		attLabelDataList.add("创建时间");
 		attLabelDataList.add("更新时间");
 		
+		List<String> pluginTypes = new ArrayList<String>();
+		pluginTypes.add("none");
+		pluginTypes.add("image");
+		
 		map.put("attrTypes", attrTypes);
 		map.put("constraints", constraints);
 		map.put("associateTypes", associateTypes);
@@ -100,6 +104,7 @@ public class ModelController {
 		map.put("attrWidgets", attrWidgets);
 		map.put("attNameDataList", attNameDataList);
 		map.put("attLabelDataList", attLabelDataList);
+		map.put("pluginTypes", pluginTypes);
 		map.put("model", new Model());
 		return "models/new";
 	}

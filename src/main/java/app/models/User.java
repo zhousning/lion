@@ -25,10 +25,9 @@ public class User {
     private String password;
     
 	private Set<Role> roles = new HashSet<Role>();
+	
 
-
-    
-    @Override
+	@Override
    	public String toString() {
    		return "User [name=" + name + ", phone=" + phone + ", email=" + email + ", password=" + password + "]";
    	}

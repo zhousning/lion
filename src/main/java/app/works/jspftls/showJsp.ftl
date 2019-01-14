@@ -62,6 +62,17 @@
 									</tr>
 								</tbody>
 							</table>
+							<#list model.pluginTypes as plugin>
+							<#if plugin == "image">
+							<p>
+								<c:if test="${r'${'}!empty ${model.name?uncap_first}.imageAttachments ${r'}'}">
+									<c:forEach items="${r'${'} ${model.name?uncap_first}.imageAttachments ${r'}'}" var="attachment">
+										<img class="blah" src="${r'${'}attachment.url ${r'}'}" class="img-rounded">
+									</c:forEach>
+								</c:if>
+							</p>
+							</#if>
+							</#list>
 						</div>
 					</div>
 				</div>

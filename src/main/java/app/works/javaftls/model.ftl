@@ -30,6 +30,12 @@ public class ${model.name} {
 	private ${model.associateObjects[associate_index]?cap_first} ${model.associateObjects[associate_index]?uncap_first};	
 	</#if>
 	</#list>
+	
+	<#list model.pluginTypes as plugin>
+	<#if plugin == "image">
+	private Set<ImageAttachment> imageAttachments = new HashSet<ImageAttachment>();
+	</#if>
+	</#list>
 
 	public ${model.name}() {
 		super();
@@ -80,6 +86,18 @@ public class ${model.name} {
 	
 	public void set${model.associateObjects[associate_index]?cap_first}(${model.associateObjects[associate_index]?cap_first} ${model.associateObjects[associate_index]?uncap_first}) {
 		this.${model.associateObjects[associate_index]?uncap_first} = ${model.associateObjects[associate_index]?uncap_first};
+	}
+	</#if>
+	</#list>
+	
+	<#list model.pluginTypes as plugin>
+	<#if plugin == "image">
+  	public Set<ImageAttachment> getImageAttachments() {
+		return imageAttachments;
+	}
+
+	public void setImageAttachments(Set<ImageAttachment> imageAttachments) {
+		this.imageAttachments = imageAttachments;
 	}
 	</#if>
 	</#list>

@@ -14,6 +14,8 @@ public class Model {
 	private List<String> associateObjects = new ArrayList<String>();
 	private List<String> widgets = new ArrayList<String>();
 	private List<String> attrWidgets = new ArrayList<String>();
+	private List<String> pluginTypes = new ArrayList<String>();
+	private List<String> pluginConditions = new ArrayList<String>();
 	
 	public Model() {
 		super();
@@ -116,6 +118,22 @@ public class Model {
 
 	public void setWidgets(List<String> widgets) {
 		this.widgets = widgets;
+	}
+
+	public List<String> getPluginTypes() {
+		return pluginTypes;
+	}
+
+	public void setPluginTypes(List<String> pluginTypes) {
+		this.pluginTypes = pluginTypes;
+	}
+
+	public List<String> getPluginConditions() {
+		return pluginConditions;
+	}
+
+	public void setPluginConditions(List<String> pluginConditions) {
+		this.pluginConditions = pluginConditions;
 	}
 	
 	

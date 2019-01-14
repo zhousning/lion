@@ -381,3 +381,15 @@ transition: all 0.4s ease-in-out;
 .associate-widget-style{
 	display: block;
 }
+.pis{
+     display: none;
+}
+       
+ .newbtn{
+         cursor: pointer;
+}
+.blah{
+  max-width:100px;
+  height:100px;
+  margin-top:20px;
+}

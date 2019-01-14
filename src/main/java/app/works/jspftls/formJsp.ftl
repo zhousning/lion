@@ -1,5 +1,5 @@
 <form:form action="${model.name?uncap_first}s" method="POST" modelAttribute="${model.name?uncap_first}"
-	class="form-horizontal">
+	class="form-horizontal" <#if (model.pluginTypes?size>0) >enctype="multipart/form-data"</#if> >
 	<c:if test="${r'${'}${model.name?uncap_first}.id != null ${r'}'}">
 		<form:hidden path="id" />
 		<input type="hidden" name="_method" value="PUT" />
@@ -32,6 +32,38 @@
 		<form:checkboxes path="${associate?uncap_first}Ids" items="${r'${'}${associate?uncap_first}s${r'}'}" itemLabel="name" itemValue="id"  element="label class='associate-widget-style'"/>
 		</#if>
 		</c:if>
+		</div>
+	</div>
+	</#if>
+	</#list>
+	
+	<#list model.pluginTypes as plugin>
+	<#if plugin == "image">
+	<div class="form-group">
+		<!-- <label for="imageAttachments" class="col-sm-2 control-label"><fmt:message
+				key="image.title"></fmt:message></label> -->
+		<div class="col-sm-10 col-sm-offset-2">
+			<p>
+				${model.pluginConditions[plugin_index]}
+			</p>
+		</div>
+		<div id="js-image-upload-ctn" class="col-sm-10">
+			<label class="newbtn"> 
+				<c:choose>
+					<c:when test="${r'${'}!empty ${model.name?uncap_first}.imageAttachments ${r'}'}">
+						<c:forEach items="${r'${'} ${model.name?uncap_first}.imageAttachments ${r'}'}" var="attachment">
+							<img class="blah" src="${r'${'} attachment.url ${r'}'}" />
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<img class="blah" src="static/images/image-upload.png">
+					</c:otherwise>
+				</c:choose>
+				<input class='pis' onchange="readURL(this);" type="file" name="${plugin}files">
+			</label>
+			<label id="js-new-imagebtn"> 
+				<img class="blah" src="static/images/image-upload.png">
+			</label>
 		</div>
 	</div>
 	</#if>

@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Iterator;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import app.models.ImageAttachment;
 
 import app.models.${model.name};
 <#list model.associateTypes as associate>
@@ -28,6 +33,10 @@ import app.services.${model.name}Service;
 <#list model.associateTypes as associate>
 import app.services.${model.associateObjects[associate_index]?cap_first}Service;
 </#list>
+
+ <#if (model.pluginTypes?size>0) >
+ import app.works.UtilTool;
+ </#if> 
 
 @Controller
 @RequestMapping("/${model.name?uncap_first}s")
@@ -93,6 +102,12 @@ public class ${model.name}Controller extends BaseController {
 		, @RequestParam(value="${model.associateObjects[associate_index]?uncap_first}.id", required=false) Integer ${model.associateObjects[associate_index]?uncap_first}Id
 		</#if>
 		</#list>
+		<#list model.pluginTypes as plugin>
+		<#if plugin == "image">
+		, @RequestParam("${plugin}files") MultipartFile[] ${plugin}files
+		</#if>
+		</#list>
+		, HttpServletRequest request, HttpServletResponse response
 	) {
 		if(result.getErrorCount() > 0){
 			for(FieldError error:result.getFieldErrors()){
@@ -115,6 +130,26 @@ public class ${model.name}Controller extends BaseController {
 		</#list>
 		);
 		</#if>
+		
+		<#list model.pluginTypes as plugin>
+		<#if plugin == "image">
+		if(${plugin}files!=null&&${plugin}files.length>0){  
+            for(int i = 0;i<${plugin}files.length;i++){  
+                MultipartFile file = ${plugin}files[i];  
+                if (!file.isEmpty()) {
+                	try {
+                		String url = UtilTool.uploadFile(file, request, response);
+            			Set<ImageAttachment> imageAttachments = new HashSet<ImageAttachment>();
+            			imageAttachments.add(new ImageAttachment(url));
+            			${model.name?uncap_first}.setImageAttachments(imageAttachments);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				}
+            }  
+        }  
+		</#if>
+		</#list>
 			
 		${model.name?uncap_first}Service.save(${model.name?uncap_first});
 		return "redirect:/${model.name?uncap_first}s/" + ${model.name?uncap_first}.getId().toString();
@@ -129,6 +164,12 @@ public class ${model.name}Controller extends BaseController {
 		, @RequestParam(value="${model.associateObjects[associate_index]?uncap_first}.id", required=false) Integer ${model.associateObjects[associate_index]?uncap_first}Id
 		</#if>
 		</#list>
+		<#list model.pluginTypes as plugin>
+		<#if plugin == "image">
+		, @RequestParam("${plugin}files") MultipartFile[] ${plugin}files
+		</#if>
+		</#list>
+		, HttpServletRequest request, HttpServletResponse response
 	) {
 		if(result.getErrorCount() > 0){
 			for(FieldError error:result.getFieldErrors()){
@@ -151,6 +192,26 @@ public class ${model.name}Controller extends BaseController {
 		</#list>
 		);
 		</#if>
+		
+		<#list model.pluginTypes as plugin>
+		<#if plugin == "image">
+		if(${plugin}files!=null&&${plugin}files.length>0){  
+            for(int i = 0;i<${plugin}files.length;i++){  
+                MultipartFile file = ${plugin}files[i];  
+                if (!file.isEmpty()) {
+                	try {
+                		String url = UtilTool.uploadFile(file, request, response);
+            			Set<ImageAttachment> imageAttachments = new HashSet<ImageAttachment>();
+            			imageAttachments.add(new ImageAttachment(url));
+            			${model.name?uncap_first}.setImageAttachments(imageAttachments);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
+				}
+            }  
+        }  
+		</#if>
+		</#list>
 		
 		${model.name?uncap_first}Service.update(${model.name?uncap_first});
 		return "redirect:/${model.name?uncap_first}s/" + ${model.name?uncap_first}.getId().toString();

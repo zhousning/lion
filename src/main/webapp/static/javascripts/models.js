@@ -5,8 +5,12 @@ $(document).ready(function() {
 		$("#attribute-ctn").append(html);
 	});
 	$("#btn-add-associate").click(function() {
-		var html = $(".associate-content").prop("outerHTML");
+		var html = $($(".associate-content")[0]).prop("outerHTML");
 		$("#associate-ctn").append(html);
+	});
+	$("#btn-add-plugin").click(function() {
+		var html = $($(".plugin-content")[0]).prop("outerHTML");
+		$("#plugin-ctn").append(html);
 	});
 });
 function deleteAttr(that) {
@@ -16,6 +20,11 @@ function deleteAttr(that) {
 function deleteAssociate(that) {
 	$(that).parentsUntil("#associate-ctn").remove();
 }
+
+function deletePlugin(that) {
+	$(that).parentsUntil("#plugin-ctn").remove();
+}
+
 function initData(){
 	$("#name-label").val("名称");
 	$("#js-name-constraint").val("@NotBlank");

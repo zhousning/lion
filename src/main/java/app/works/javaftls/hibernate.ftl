@@ -9,7 +9,7 @@
 			<generator class="native" />
 		</id>
 		<#list model.attrNames as name>
-		<property name="${name}" <#if model.widgets[name_index] == "textarea">type="text"<#elseif  model.widgets[name_index] == "date">type="date"</#if> />
+		<property name="${name}" <#if model.attrWidgets[name_index] == "textarea">type="text"<#elseif  model.attrWidgets[name_index] == "date">type="date"</#if> />
 		</#list>
 		
 		<#list model.associateTypes as associate>
@@ -29,5 +29,17 @@
 		</set>
 		</#if>
 		</#list>
+		
+		<#list model.pluginTypes as plugin>
+		<#if plugin == "image">
+		<set name="imageAttachments" table="imageAttachments"
+			cascade="save-update,delete" inverse="false" lazy="false">
+			<key column="${model.name?uncap_first}_id" />
+			<one-to-many class="ImageAttachment" />
+		</set>
+		</#if>
+		</#list>
+		
+		
 	</class>
 </hibernate-mapping>
