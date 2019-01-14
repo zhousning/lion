@@ -66,13 +66,40 @@ public class ModelController {
 		attrWidgets.add("number");
 		attrWidgets.add("textarea");
 		attrWidgets.add("date");
+		attrWidgets.add("password");
 		attrWidgets.add("none");
+		
+		List<String> attNameDataList = new ArrayList<String>();
+		attNameDataList.add("title");
+		attNameDataList.add("content");
+		attNameDataList.add("status");
+		attNameDataList.add("image");
+		attNameDataList.add("url");
+		attNameDataList.add("phone");
+		attNameDataList.add("email");
+		attNameDataList.add("password");
+		attNameDataList.add("createTime");
+		attNameDataList.add("updateTime");
+		
+		List<String> attLabelDataList = new ArrayList<String>();
+		attLabelDataList.add("标题");
+		attLabelDataList.add("内容");
+		attLabelDataList.add("状态");
+		attLabelDataList.add("图片");
+		attLabelDataList.add("地址");
+		attLabelDataList.add("电话");
+		attLabelDataList.add("邮箱");
+		attLabelDataList.add("密码");
+		attLabelDataList.add("创建时间");
+		attLabelDataList.add("更新时间");
 		
 		map.put("attrTypes", attrTypes);
 		map.put("constraints", constraints);
 		map.put("associateTypes", associateTypes);
 		map.put("widgets", widgets);
 		map.put("attrWidgets", attrWidgets);
+		map.put("attNameDataList", attNameDataList);
+		map.put("attLabelDataList", attLabelDataList);
 		map.put("model", new Model());
 		return "models/new";
 	}

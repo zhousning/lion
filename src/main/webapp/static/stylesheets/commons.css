@@ -378,3 +378,6 @@ transition: all 0.4s ease-in-out;
 .margin-top-15{
 	margin-top: 15px;
 }
+.associate-widget-style{
+	display: block;
+}

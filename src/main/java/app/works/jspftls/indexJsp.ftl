@@ -74,7 +74,7 @@
 										<td><a href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id ${r'}'}" class="btn btn-info"><fmt:message
 													key="btn.info"></fmt:message></a> <a
 											href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id ${r'}'}/edit" class="btn btn-success"><fmt:message
-													key="btn.edit"></fmt:message></a> <a href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id${r'}'}"
+													key="btn.edit"></fmt:message></a> <a href="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id${r'}'}/destroy"
 											class="delete btn btn-danger"><fmt:message
 													key="btn.delete"></fmt:message></a></td>
 									</tr>
