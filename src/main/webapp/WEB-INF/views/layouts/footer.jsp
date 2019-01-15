@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <div class="footer-wrap">
   <div class="container-fluid">
     <div class="row">
@@ -38,6 +40,6 @@
         <div class="info"><i class="fa fa-fax" aria-hidden="true"></i> <a href="#.">(123) 456 7890</a></div>
       </div>
     </div>
-    <div class="copyright">Copyright © 2017 Classify - All Rights Reserved.</div>
+    <div class="copyright">Copyright Â© 2017 Classify - All Rights Reserved.</div>
   </div>
 </div>

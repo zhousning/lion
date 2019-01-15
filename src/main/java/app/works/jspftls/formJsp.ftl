@@ -1,8 +1,7 @@
-<form:form action="${model.name?uncap_first}s" method="POST" modelAttribute="${model.name?uncap_first}"
+<form:form action="${model.name?uncap_first}s/${r'${'}${model.name?uncap_first}.id != null ? 'update' : 'create' ${r'}'}" method="POST" modelAttribute="${model.name?uncap_first}"
 	class="form-horizontal" <#if (model.pluginTypes?size>0) >enctype="multipart/form-data"</#if> >
 	<c:if test="${r'${'}${model.name?uncap_first}.id != null ${r'}'}">
 		<form:hidden path="id" />
-		<input type="hidden" name="_method" value="PUT" />
 	</c:if>
 	
 	<#list model.attrTypes as type>
@@ -47,22 +46,26 @@
 				${model.pluginConditions[plugin_index]}
 			</p>
 		</div>
-		<div id="js-image-upload-ctn" class="col-sm-10">
-			<label class="newbtn"> 
-				<c:choose>
-					<c:when test="${r'${'}!empty ${model.name?uncap_first}.imageAttachments ${r'}'}">
-						<c:forEach items="${r'${'} ${model.name?uncap_first}.imageAttachments ${r'}'}" var="attachment">
+		<div id="js-image-upload-ctn" class="col-sm-10 col-sm-offset-2">
+			<c:choose>
+				<c:when test="${r'${'}!empty ${model.name?uncap_first}.imageAttachments ${r'}'}">
+					<c:forEach items="${r'${'} ${model.name?uncap_first}.imageAttachments ${r'}'}" var="attachment">
+						<label class="newbtn">
 							<img class="blah" src="${r'${'} attachment.url ${r'}'}" />
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
+							<input class='pis' onchange="readURL(this);" type="file"  name="${plugin}files">
+							<input type="hidden" value="${r'${'} attachment.id ${r'}'}" class="hiddenImage" name="hiddenImageIds" />
+						</label>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<label class="newbtn">
 						<img class="blah" src="static/images/image-upload.png">
-					</c:otherwise>
-				</c:choose>
-				<input class='pis' onchange="readURL(this);" type="file" name="${plugin}files">
-			</label>
+						<input class='pis' onchange="readURL(this);" type="file" name="${plugin}files">
+					</label>
+				</c:otherwise>
+			</c:choose>
 			<label id="js-new-imagebtn"> 
-				<img class="blah" src="static/images/image-upload.png">
+				<img class="blah" src="static/images/image-plus.png">
 			</label>
 		</div>
 	</div>

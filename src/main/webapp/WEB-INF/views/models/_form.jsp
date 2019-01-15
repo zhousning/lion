@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <form:form action="models" method="POST" modelAttribute="model"
 	class="form-horizontal">
 
@@ -15,6 +17,10 @@
 				path="title" />
 		</div>
 	</div>
+	
+	<h2>
+	如果不需要就删掉
+	</h2>
 	
 	<%@ include file="/WEB-INF/views/models/_attribute_form.jsp"%>
 	

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import app.models.ImageAttachment;
+import app.services.ImageAttachmentService;
 
 import app.models.${model.name};
 <#list model.associateTypes as associate>
@@ -35,7 +36,7 @@ import app.services.${model.associateObjects[associate_index]?cap_first}Service;
 </#list>
 
  <#if (model.pluginTypes?size>0) >
- import app.works.UtilTool;
+import app.works.UtilTool;
  </#if> 
 
 @Controller
@@ -47,6 +48,11 @@ public class ${model.name}Controller extends BaseController {
 	<#list model.associateTypes as associate>
 	@Autowired
 	${model.associateObjects[associate_index]?cap_first}Service ${model.associateObjects[associate_index]?uncap_first}Service;
+	</#list>
+	
+	<#list model.pluginTypes as plugin>
+	@Autowired
+	${plugin?cap_first}AttachmentService ${plugin?uncap_first}AttachmentService;
 	</#list>
 	
 	@ModelAttribute
@@ -93,7 +99,7 @@ public class ${model.name}Controller extends BaseController {
 		return "redirect:/${model.name?uncap_first}s/index";
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.POST)
+	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String create(@Valid ${model.name} ${model.name?uncap_first}, Errors result, Map<String, Object> map
 		<#list model.associateTypes as associate>
 		<#if (model.widgets[associate_index] != "none") && (associate == "one-to-many" || associate == "many-to-many")>
@@ -133,20 +139,20 @@ public class ${model.name}Controller extends BaseController {
 		
 		<#list model.pluginTypes as plugin>
 		<#if plugin == "image">
-		if(${plugin}files!=null&&${plugin}files.length>0){  
+		if(${plugin}files!=null&&${plugin}files.length>0){
+		    Set<ImageAttachment> imageAttachments = new HashSet<ImageAttachment>();
             for(int i = 0;i<${plugin}files.length;i++){  
                 MultipartFile file = ${plugin}files[i];  
                 if (!file.isEmpty()) {
                 	try {
                 		String url = UtilTool.uploadFile(file, request, response);
-            			Set<ImageAttachment> imageAttachments = new HashSet<ImageAttachment>();
             			imageAttachments.add(new ImageAttachment(url));
-            			${model.name?uncap_first}.setImageAttachments(imageAttachments);
 					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 				}
-            }  
+            }
+            ${model.name?uncap_first}.setImageAttachments(imageAttachments);  
         }  
 		</#if>
 		</#list>
@@ -155,7 +161,7 @@ public class ${model.name}Controller extends BaseController {
 		return "redirect:/${model.name?uncap_first}s/" + ${model.name?uncap_first}.getId().toString();
 	}
 	
-	@RequestMapping(value="", method=RequestMethod.PUT)
+	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public String update(@Valid ${model.name} ${model.name?uncap_first}, Errors result, Map<String, Object> map
 		<#list model.associateTypes as associate>
 		<#if model.widgets[associate_index] != "none" && associate == "one-to-many" || associate == "many-to-many">
@@ -167,6 +173,7 @@ public class ${model.name}Controller extends BaseController {
 		<#list model.pluginTypes as plugin>
 		<#if plugin == "image">
 		, @RequestParam("${plugin}files") MultipartFile[] ${plugin}files
+		, @RequestParam("hiddenImageIds") Integer[] hiddenImageIds
 		</#if>
 		</#list>
 		, HttpServletRequest request, HttpServletResponse response
@@ -195,20 +202,24 @@ public class ${model.name}Controller extends BaseController {
 		
 		<#list model.pluginTypes as plugin>
 		<#if plugin == "image">
+		List<ImageAttachment> imageAttachments = new ArrayList<ImageAttachment>();
+		if (hiddenImageIds != null) {
+			imageAttachments = imageAttachmentService.findByIds(hiddenImageIds);
+		}
+		Set<ImageAttachment> images = new HashSet<ImageAttachment>(imageAttachments);
 		if(${plugin}files!=null&&${plugin}files.length>0){  
             for(int i = 0;i<${plugin}files.length;i++){  
                 MultipartFile file = ${plugin}files[i];  
                 if (!file.isEmpty()) {
                 	try {
                 		String url = UtilTool.uploadFile(file, request, response);
-            			Set<ImageAttachment> imageAttachments = new HashSet<ImageAttachment>();
-            			imageAttachments.add(new ImageAttachment(url));
-            			${model.name?uncap_first}.setImageAttachments(imageAttachments);
+            			images.add(new ImageAttachment(url));
 					} catch (Exception e) {
 						System.out.println(e.getMessage());
 					}
 				}
-            }  
+            }
+            ${model.name?uncap_first}.setImageAttachments(images);
         }  
 		</#if>
 		</#list>
